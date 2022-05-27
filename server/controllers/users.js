@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
-const responseHandler = require('../lib/response_handler');
+const Recipe = require('../models/recipe');
+const Like = require ('../models/like');
+const response = require('../lib/response_handler');
+const user = require('../models/user');
+const req = require('express/lib/request');
 
 
 module.exports ={
@@ -23,14 +27,23 @@ module.exports ={
     });
   },
 
-  create:
+  create: 
   async (req, res) => {
-    const user = await User.create(req.body);
-    res.send({
-      error: false,
-      message: 'New user has been created',
-      user: user
-    });
+    try {
+      let user = await User.findOne({ email: req.body.email });
+      if (user) {
+        return response( res, 400, 
+          'User with the email: '+req.body.email+' allready exists in the database' 
+        );
+      }  
+      //req.body.password = bcrypt.hashSync(req.body.password);
+  
+      user = await User.create(req.body);  
+      response(res, 201, 'New user has been created', { user });
+    } 
+    catch (error) {
+      response(res, 500, error.msg);
+    }
   },
 
   patch:
@@ -39,7 +52,7 @@ module.exports ={
     const user = await User.findById(req.params.id);
     res.send({
       error: false,
-      message: `User with id #${user._id} has been updated`,
+      message: `Hey, your data with id #${user._id} has been updated`,
       user: user
     });
   },
@@ -51,5 +64,34 @@ module.exports ={
       error: false,
       message: `User with id #${req.params.id} has been deleted`
     });
+  },
+
+  likeUnlike:
+  async(req, res) =>{  
+    try{
+      const like = await Like.findOne({ user : req.body.user , recipe: req.body.recipe });
+
+      if (like){
+        await Like.findOneAndDelete({    
+            $and: [{ user: req.body.user }, { recipe: req.body.recipe }]
+          },
+          response( res, 201,
+            `User #${req.body.user} has has liked the recipe #${req.body.recipe}.`
+          )
+        );         
+      } 
+      else {
+          await Like.create({ user: req.body.user, recipe: req.body.recipe },
+            response( res, 201,
+              `User with id #${req.body.user} has deleted like for the recipe #${req.body.recipe}.`
+            )
+          );
+        }
+    }
+    catch(error){
+      response( res, 500,
+        `The like/unlike request failed`
+      )
+    }
   }
 }
