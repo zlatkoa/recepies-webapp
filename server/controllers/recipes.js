@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Recipe = require('../models/recipe');
 const User = require('../models/user');
-const responseHandler = require('../lib/response_handler');
+const response = require('../lib/response_handler');
+const recipe = require('../models/recipe');
 
 
 module.exports ={
@@ -27,6 +28,7 @@ module.exports ={
 
   create:
   async (req, res) => {
+    req.body.likes = 0;
     const recipe = await Recipe.create(req.body);
     res.send({
       error: false,
@@ -53,5 +55,30 @@ module.exports ={
       error: false,
       message: `Recipe with id #${req.params.id} has been deleted`
     });
+  },
+
+  getByUser:
+  async(req, res) =>{  
+    try{
+      const recipe = await Recipe.find( {creator : req.params.id});
+
+      if (recipe.length>0){
+        res.send({
+          error: false,
+          message: `All recipes from user #${req.params.id}`,
+          recipe: recipe
+        })       
+      } 
+      else {          
+            response( res, 201,
+              `User #${req.params.id} has no recipes in the DB`
+            );
+        }
+    }
+    catch(error){
+      response( res, 500,
+        `The fetch for the recipes failed the USer ID is wrong`
+      )
+    }
   }
 }

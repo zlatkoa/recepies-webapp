@@ -8,5 +8,6 @@ router.get('/', controller.getAll)
       .post('/', controller.create)
       .patch('/:id', controller.patch)
       .delete('/:id', controller.delete)
+      .get('/user/:id', controller.getByUser)
 
 module.exports = router;

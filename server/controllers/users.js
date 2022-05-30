@@ -72,20 +72,22 @@ module.exports ={
       const like = await Like.findOne({ user : req.body.user , recipe: req.body.recipe });
 
       if (like){
-        await Like.findOneAndDelete({    
+        await Like.findOneAndDelete({  
             $and: [{ user: req.body.user }, { recipe: req.body.recipe }]
-          },
+          }),
+          await Recipe.updateOne( {_id : req.body.recipe}, { $inc: {likes: -1}})
           response( res, 201,
-            `User #${req.body.user} has has liked the recipe #${req.body.recipe}.`
-          )
-        );         
+            `User #${req.body.user} has has deleted the recipe #${req.body.recipe}.`
+          );
+             
       } 
       else {
-          await Like.create({ user: req.body.user, recipe: req.body.recipe },
-            response( res, 201,
-              `User with id #${req.body.user} has deleted like for the recipe #${req.body.recipe}.`
-            )
+          await Like.create({ user: req.body.user, recipe: req.body.recipe }),
+          await Recipe.updateOne( {_id : req.body.recipe}, { $inc: {likes: 1}}),
+          response( res, 201,
+            `User with id #${req.body.user} has created like for the recipe #${req.body.recipe}.`
           );
+          
         }
     }
     catch(error){

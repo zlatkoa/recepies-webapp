@@ -32,6 +32,10 @@ const recipeSchema = mongoose.Schema({
   picture: {
     type: String,
     required: true
+  },
+  likes: {
+    type: Number,
+    required: true
   }
 
 }, { timestamps: true });
