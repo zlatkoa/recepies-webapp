@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Recipe = require('../models/recipe');
 const User = require('../models/user');
 const response = require('../lib/response_handler');
-const recipe = require('../models/recipe');
 
 
 module.exports ={
@@ -23,6 +22,16 @@ module.exports ={
       error:false,
       message: `Recipe with id #${recipe._id}`,
       recipe : recipe
+    });
+  },
+
+  getLatest:
+  async (req, res) => {
+    const recipes = await Recipe.find().sort({$natural:-1}).limit(3);
+    res.send({
+      error: false,
+      message: 'Latest 3 recipes from the database',
+      recipes: recipes
     });
   },
 

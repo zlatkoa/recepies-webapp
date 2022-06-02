@@ -4,10 +4,11 @@ const controller = require('../controllers/recipes');
 
 
 router.get('/', controller.getAll)
+      .get('/latest', controller.getLatest)
+      .get('/user/:id', controller.getByUser)
       .get('/:id', controller.getOne)
       .post('/', controller.create)
       .patch('/:id', controller.patch)
       .delete('/:id', controller.delete)
-      .get('/user/:id', controller.getByUser)
 
 module.exports = router;
