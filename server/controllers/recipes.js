@@ -37,13 +37,21 @@ module.exports ={
 
   create:
   async (req, res) => {
-    req.body.likes = 0;
-    const recipe = await Recipe.create(req.body);
-    res.send({
-      error: false,
-      message: 'New recipe has been created',
-      recipe: recipe
-    });
+    try{
+      req.body.likes = 0;
+      req.body.category=req.body.category.toLowerCase();
+      const recipe = await Recipe.create(req.body);
+      res.send({
+        error: false,
+        message: 'New recipe has been created',
+        recipe: recipe
+      });   
+    }
+    catch(error){
+      response( res, 500,
+        `Creation of new recepie failed`
+      )
+    }
   },
 
   patch:
@@ -88,6 +96,43 @@ module.exports ={
       response( res, 500,
         `The fetch for the recipes failed the USer ID is wrong`
       )
+    }
+  },
+  getByCategory:
+    async (req, res) =>{
+      try{
+        const category = req.params.category.toLowerCase();
+        const recipes = await Recipe.find({ category: category } );
+        res.send({
+          error:false,
+          message: `Recepies from category #${req.params.category} `,
+          recipes : recipes
+        });
+      }
+      catch(error){
+        response( res, 500,
+          `The fetch for the recipes by category ${req.params.category}  failed`
+        )
+    }
+  },
+  getMostPopular:
+    async (req, res) =>{
+      try{        
+        const recipes = await Recipe.aggregate(
+          [
+            { $sort : { likes : -1 } }
+          ]
+       ).limit(6);
+        res.send({
+          error:false,
+          message: `Most popular ${recipes.length} recipes`,
+          recipes : recipes
+        });
+      }
+      catch(error){
+        response( res, 500,
+          `The fetch for the recipes by popularity failed`
+        )
     }
   }
 }
