@@ -1,0 +1,11 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+URL:https://be.synxis.com/confirm?_ga=2.150543871.851651843.1654194592-380524461.1654194591&adult=2&arrive=2022-06-09&chain=5375&child=2&childages=2|6&currency=EUR&depart=2022-06-12&hotel=57850&level=hotel&locale=en-US&rate=WEBEARLY,WEBBEST&rooms=1&sbe_pl=1&sbe_rc=NDIxZTQ2NTktYjg4MS00MWY4LWE3NTAtZjA0ZTZjM2I5ZjRl
+DTSTART:20220609T120000Z
+DTEND:20220612T100000Z
+SUMMARY:Junior - IN Hotel Belgrade
+DESCRIPTION:We’re looking forward to your stay with us at IN Hotel Belgrade! Please come to the front desk when you arrive. Check-in time is any time after 2:00 PM. For your convenience, your confirmation number is 57850SE002206. If you have any questions or concerns, please call us at +381 11 3105300 or email us at frontoffice@inhotel-belgrade.rs.
+LOCATION:
+END:VEVENT
+END:VCALENDAR

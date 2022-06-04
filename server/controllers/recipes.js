@@ -38,14 +38,25 @@ module.exports ={
   create:
   async (req, res) => {
     try{
-      req.body.likes = 0;
-      req.body.category=req.body.category.toLowerCase();
-      const recipe = await Recipe.create(req.body);
-      res.send({
-        error: false,
-        message: 'New recipe has been created',
-        recipe: recipe
-      });   
+      // console.log(file);
+      // const filetype = req.file.mimetype.split('/')[0];
+      // if(filetype=='image'){
+        req.body.likes = 0;
+        req.body.category=req.body.category.toLowerCase();
+        req.body.picture = `images/${req.file.filename}`
+        const recipe = await Recipe.create(req.body);
+        res.send({
+          error: false,
+          message: 'New recipe has been created',
+          recipe: recipe
+        });      
+      // }else{
+      //   res.send({
+      //     error: true,
+      //     message: 'Please upload a picture file'
+      //   });
+      // }
+      
     }
     catch(error){
       response( res, 500,
