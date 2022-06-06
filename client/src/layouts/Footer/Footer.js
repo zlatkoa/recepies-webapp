@@ -11,11 +11,11 @@ function App() {
             </div>
             <div className="footeritem2">
               <a href="/"> Breakfast </a> 
-               &#9679;
+               <div className="fseparator">&#9679;</div>
               <a href="/">Brunch</a> 
-              &#9679;
+              <div className="fseparator">&#9679;</div>
               <a href="/">Lunch</a> 
-               &#9679;
+              <div className="fseparator">&#9679;</div>
               <a href="/">Dinner</a> 
              </div>
             <div className="footeritem3"><p>Baby's Food Place <br/>copyright &copy; 2021</p> </div>

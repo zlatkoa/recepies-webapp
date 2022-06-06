@@ -3,15 +3,19 @@ nav {
   top: 0;  
 }
 
-a:link { 
+.navbaritem2 a { 
   background-color: transparent;
   text-decoration: none;
-  color: inherit; 
+  color: #A5A5A5; 
 }
 
 a, a:hover, a:focus, a:active {
   text-decoration: none;
   color: inherit;  
+}
+
+.separator {
+  color:orange;
 }
 
 .navbarcontainer {

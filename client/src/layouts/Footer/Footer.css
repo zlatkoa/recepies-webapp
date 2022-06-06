@@ -4,7 +4,7 @@ footer {
   bottom: 0;  
 }
 
-a:link { 
+.footeritem2 a { 
   background-color: transparent;
   text-decoration: none;
   color: inherit;  

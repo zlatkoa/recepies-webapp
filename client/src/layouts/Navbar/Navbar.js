@@ -11,11 +11,11 @@ function App() {
             </div>
             <div className="navbaritem2">
               <a href="/"> Breakfast </a> 
-               &#9679;
+              <div className="separator">&#9679;</div>
               <a href="/">Brunch</a> 
-              &#9679;
+              <div className="separator">&#9679;</div>
               <a href="/">Lunch</a> 
-               &#9679;
+              <div className="separator">&#9679;</div>
               <a href="/">Dinner</a> 
              </div>
             <div className="navbaritem3">
