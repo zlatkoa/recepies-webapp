@@ -1,0 +1,117 @@
+.cards{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: space-around;
+  
+}
+
+.card-wrapper{
+    width:373px;
+    height:428px;
+    background: white;
+    border: 1px, solid ,lightgray;
+    border-radius: 5px;
+    box-shadow: 0px 10px 20px #00000012;
+    margin-bottom: 55px;
+  
+  }
+  .card-top{
+    width: auto;
+    height: 234px;
+  }
+  
+  .card-top .card-category{
+    font: normal normal bold 14px/19px Roboto Slab;
+    background-color: #96BB36;
+    border: none;
+    color: white;
+    padding: 3px 11px 4px 11px;
+    text-align: left;
+    text-transform: lowercase;
+    text-decoration: none;
+    display: inline-block;
+    margin: 17px 25px;
+    cursor: pointer;
+    border-radius: 15px;
+    height: 26px;
+    position: absolute;
+  
+  }
+  
+  .card-wrapper .card-top .card-image{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px 5px 0px 0px;
+  }
+  
+  .card-content{
+    width: 100%;
+    height: inherit;
+    padding-left: 25px;
+    padding-right: 30px;
+    padding-bottom: 64px;
+  }
+  
+  .card-content h2 {
+    color: #F0972A;
+    font: normal normal bold 20px/26px Roboto Slab;
+    letter-spacing: 0px;
+    text-align: left;
+    margin: 16px 0px 9px 0px;
+  }
+  
+  .card-content p {
+    color: #A5A5A5;
+    text-align: left;
+    font: normal normal normal 14px/19px Roboto;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ''; 
+    height: 79px;
+  }
+  
+  .card-info{
+    width: 100%;
+    height: 100%;
+    font: normal normal bold 12px/16px Roboto Slab;
+    color: #626262;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .card-info .card-details {
+    width:28px;
+    height: 28px;
+    background-color: #96BB36;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    color: white;
+    font: normal normal bolder 14px/19px Roboto;
+    
+  }
+  
+  .card-info .icon {
+    margin-right: 5px;
+    color: #A5A5A5;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .card-info .icon-button {
+    color: white;
+    padding: 0px;
+    height: 18px;
+  }
+  .icon-button:hover {
+    cursor:pointer;
+  }
+  
+  .card-details{
+    margin-left: 85px;
+  }

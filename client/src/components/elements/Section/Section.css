@@ -1,0 +1,25 @@
+.section-header{
+    display:flex;
+    margin-bottom: 43px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 1247px;
+
+}
+.section-title{
+    width:auto;
+    flex-grow:0;
+    margin-right:10px;
+}
+.section-title h1{
+    font: normal normal bold 36px/48px Roboto Slab;
+    color:#96BB36;   
+}
+
+.section-line {
+    border-bottom: 1px solid #D8D8D8;
+    width: auto;
+    flex-grow:2;
+    
+}

@@ -1,45 +1,35 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Card.css';
-import {
-    faUtensils,
-    faClock,
-    faStar,
-    faAnglesRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+const settings = require ('../../../settings/settings.json');
 
 
 const Card = (props) => {
-    const { imgUrl, title, category, shortDescription, preparationTime, numberOfPeople, showModal } = props;
+    const recipes = props.recipes.recipes;
+    console.log(recipes);
+    const { picture, title, category, description, time, people, likes } = recipes;
     return (
-        <div className='card-wrapper'>
-            <div className='card-top' style={{ backgroundImage: `url(${imgUrl})` }}>
-                <div className='recipe-type'>{category}</div>
-            </div>
-            <div className='card-bottom'>
-                <div className='card-content'>
-                    <h2>{title}</h2>
-                    <p>{shortDescription}</p>
+        <div className='cards'>
+            {recipes.map((recipe)=> (
+                <div className='card-wrapper'>            
+                    <div className='card-top'>
+                        <div className='card-category'>{ recipe.category }</div>
+                        <img className='card-image' src={ settings.url+recipe.picture }></img>
+                    </div>
+                    <div className='card-content'>
+                        <h2>{ recipe.title }</h2>
+                        <p>{ recipe.description }</p> 
+                        <div className='card-info'>
+                            <div className='card-time'><FontAwesomeIcon className='icon' icon={faClock} />{ recipe.time } min</div>
+                            <div className='card-serving'><FontAwesomeIcon className='icon' icon={faUtensils} />{ recipe.people } persons</div>
+                            <div className='card-like'><FontAwesomeIcon className='icon' icon={faStar} />{ recipe.likes }</div>
+                            <div className='card-details'> <FontAwesomeIcon className='icon-button' icon={faAnglesRight} /> </div>
+                    </div>
+                    </div>                     
                 </div>
-                <div className='card-icons'>
-                    <div className='card-time'>
-                        <FontAwesomeIcon icon={faClock} color='gray' />{' '}
-                        {preparationTime} min
-                    </div>
-                    <div className='card-people'>
-                        <FontAwesomeIcon icon={faUtensils} color='gray' />{' '}
-                        {numberOfPeople} people
-                    </div>
-                    <div className='card-stars'>
-                        <FontAwesomeIcon icon={faStar} color='gray' /> 30
-                    </div>
-                    <div className='card-button'>
-                        <button onClick={showModal}>
-                            <FontAwesomeIcon icon={faAnglesRight} color='white' />
-                        </button>
-                    </div>
-                </div>
-            </div>
+            ))}     
         </div>
+        
     );
 };
 

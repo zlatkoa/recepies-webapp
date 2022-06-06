@@ -19,8 +19,9 @@ function App() {
               <a href="/">Dinner</a> 
              </div>
             <div className="navbaritem3">
-                <button>Log in</button>
-                <button>Log in</button>
+                <button className='login-button'>Log in</button>
+                <span><p>or</p></span>
+                <button className='create-account'>Create acount</button>
             </div>
           </div>      
       </nav>
