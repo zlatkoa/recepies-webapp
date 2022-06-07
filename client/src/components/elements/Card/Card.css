@@ -2,9 +2,12 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   align-content: space-around;
+  gap: 55px 55px;
+  margin-bottom: 55px;
+  
   
 }
 
@@ -14,8 +17,9 @@
     background: white;
     border: 1px, solid ,lightgray;
     border-radius: 5px;
+    
     box-shadow: 0px 10px 20px #00000012;
-    margin-bottom: 55px;
+    
   
   }
   .card-top{
@@ -28,7 +32,7 @@
     background-color: #96BB36;
     border: none;
     color: white;
-    padding: 3px 11px 4px 11px;
+    padding: 2px 11px 0px 11px;
     text-align: left;
     text-transform: lowercase;
     text-decoration: none;
@@ -38,6 +42,7 @@
     border-radius: 15px;
     height: 26px;
     position: absolute;
+    box-sizing: border-box;
   
   }
   
@@ -49,8 +54,8 @@
   }
   
   .card-content{
-    width: 100%;
-    height: inherit;
+    width: auto;
+    height: auto;
     padding-left: 25px;
     padding-right: 30px;
     padding-bottom: 64px;
@@ -62,6 +67,11 @@
     letter-spacing: 0px;
     text-align: left;
     margin: 16px 0px 9px 0px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ''; 
   }
   
   .card-content p {
@@ -78,22 +88,20 @@
   
   .card-info{
     width: 100%;
-    height: 100%;
+    height: auto;
     font: normal normal bold 12px/16px Roboto Slab;
     color: #626262;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+   justify-content: space-between;
+    align-items:center;
   }
   .card-info .card-details {
     width:28px;
     height: 28px;
     background-color: #96BB36;
     border-radius: 5px;
-    padding: 5px 5px 5px 5px;
-    color: white;
-    font: normal normal bolder 14px/19px Roboto;
-    
+    color: white; 
+   
   }
   
   .card-info .icon {
@@ -103,10 +111,10 @@
     height: 16px;
   }
   
-  .card-info .icon-button {
+ .card-details .icon-button {
     color: white;
-    padding: 0px;
-    height: 18px;
+    padding: 5px;
+    height: 20px;
   }
   .icon-button:hover {
     cursor:pointer;
@@ -114,4 +122,5 @@
   
   .card-details{
     margin-left: 85px;
+    box-sizing: border-box;
   }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './elements/Card/Card';
+import Pagination from './elements/Pagination/Pagination';
 import SectionHeader from './elements/Section/Section'
 import './Home.css';
 
@@ -10,12 +11,12 @@ function App() {
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [loading, setLoading]= useState(false);
   const [currentPage, setCurrentPage]= useState(1);
-  const [recipesPerPage, setRecipesPerPage]= useState(3);
+  const [recipesPerPage]= useState(3);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
-      const resRecipes = await axios.get('http://localhost:3000/recipes');
+      const resRecipes = await axios.get('http://localhost:3000/recipes/latest');
       const dataRecipes = await resRecipes.data.recipes;  
       setRecipes (dataRecipes);        
     }
@@ -34,20 +35,28 @@ function App() {
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
-
-
-//https://www.youtube.com/watch?v=IYCa1F-OWmk
-
+  
+  const paginate = pageNumber =>setCurrentPage(pageNumber)
+  //https://www.youtube.com/watch?v=IYCa1F-OWmk
 
   if(isDataFetched) {
     if (recipes){
       return (
-        <div className='homecontainer'>
+        <>
+          <div className='homecontainer'>
           <SectionHeader title={'Fresh & New'}/>
           <Card recipes={currentRecipes} loading={loading}/>
+        </div>
+        <div className='homecontainer'>
+          <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate}/>
+        </div>
+        <div className='homecontainer'>
           <SectionHeader title={'Most Popular'}/>
           <Card recipes={popularRecipes} loading={loading}/>
-        </div>
+        </div>   
+        
+        </>
+      
       );        
     }else{
       return (

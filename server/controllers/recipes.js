@@ -27,7 +27,7 @@ module.exports ={
 
   getLatest:
   async (req, res) => {
-    const recipes = await Recipe.find().sort({$natural:-1}).limit(3);
+    const recipes = await Recipe.find().sort({$natural:-1}).limit(12);
     res.send({
       error: false,
       message: 'Latest 3 recipes from the database',
