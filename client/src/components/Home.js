@@ -1,52 +1,69 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Card from './elements/Card/Card';
 import SectionHeader from './elements/Section/Section'
 import './Home.css';
 
+function App() {
+  const [recipes, setRecipes] = useState([]);
+  const [popularRecipes, setPopularRecipes] = useState([]);
+  const [isDataFetched, setIsDataFetched] = useState(false);
+  const [loading, setLoading]= useState(false);
+  const [currentPage, setCurrentPage]= useState(1);
+  const [recipesPerPage, setRecipesPerPage]= useState(3);
 
-  function App() {
-    // Isprati HTTP req do server endpoint
-    const [recipes, setRecipes] = useState(null);
-    const [isDataFetched, setIsDataFetched] = useState(false);
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      setLoading(true);
+      const resRecipes = await axios.get('http://localhost:3000/recipes');
+      const dataRecipes = await resRecipes.data.recipes;  
+      setRecipes (dataRecipes);        
+    }
+    fetchRecipes();
 
-    useEffect(() => {
-      const sendRequest = async () => {
-        const res = await fetch('http://localhost:3000/recipes');
-        const data = await res.json();            
-        setRecipes(data);
-        setIsDataFetched(true);
-      }
-      sendRequest();
-    }, []);
+    const fetchPopularRecipes = async () =>{    
+      const resPopular = await axios.get ('http://localhost:3000/recipes/popular')
+      const dataPopular = await resPopular.data.recipes;        
+      setPopularRecipes(dataPopular);
+      setIsDataFetched(true);
+      setLoading(false);     
+    }  
+    fetchPopularRecipes();
+  }, []);
 
-    // If message is not fetched from the server yet
-    if(isDataFetched) {
-      if (recipes.recipes.length>0){
-        return (
-          <div className='homecontainer'>
-            <SectionHeader title={'Fresh & New'}/>
-            <Card recipes={recipes}/>
-            <SectionHeader title={'Most Popular'}/>
-            <Card recipes={recipes}/>
-          </div>
-        );        
-      }else{
-        return (
-          <div className='homecontainer'>
-            <div>Database is empty. </div>
-          </div>
-        );
-      }
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
+
+//https://www.youtube.com/watch?v=IYCa1F-OWmk
+
+
+  if(isDataFetched) {
+    if (recipes){
+      return (
+        <div className='homecontainer'>
+          <SectionHeader title={'Fresh & New'}/>
+          <Card recipes={currentRecipes} loading={loading}/>
+          <SectionHeader title={'Most Popular'}/>
+          <Card recipes={popularRecipes} loading={loading}/>
+        </div>
+      );        
     }else{
       return (
         <div className='homecontainer'>
-          <div> Loading... </div>
-        </div>        
+          <div>Database is empty. </div>
+        </div>
       );
-
     }
 
-    
+  }else{
+    return (
+      <div className='homecontainer'>
+        <div> Loading posts from the server, please wait ... </div>
+      </div>        
+    );
+  }    
 }
   
 export default App;

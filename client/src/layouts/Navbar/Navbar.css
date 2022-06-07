@@ -66,8 +66,7 @@ a, a:hover, a:focus, a:active {
   color:orange;
   margin-left:16px;
   margin-right:16px;
-  font: normal normal 900 16px/21px Roboto;
-  
+  font: normal normal 900 16px/21px Roboto;  
 }
 
 .login-button{

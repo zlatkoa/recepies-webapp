@@ -1,7 +1,6 @@
 import './Navbar.css';
 import logo from '../../media/logo/logoheader.jpg'
 
-
 function App() {
   return (
       <nav>

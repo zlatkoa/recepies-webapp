@@ -4,10 +4,13 @@ import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-so
 const settings = require ('../../../settings/settings.json');
 
 
-const Card = (props) => {
-    const recipes = props.recipes.recipes;
+const Card = ({recipes, loading}) => {
+
+    if (loading){
+        return <h2>Loading ...</h2>;
+    }
     console.log(recipes);
-    const { picture, title, category, description, time, people, likes } = recipes;
+     
     return (
         <div className='cards'>
             {recipes.map((recipe)=> (
@@ -24,7 +27,7 @@ const Card = (props) => {
                             <div className='card-serving'><FontAwesomeIcon className='icon' icon={faUtensils} />{ recipe.people } persons</div>
                             <div className='card-like'><FontAwesomeIcon className='icon' icon={faStar} />{ recipe.likes }</div>
                             <div className='card-details'> <FontAwesomeIcon className='icon-button' icon={faAnglesRight} /> </div>
-                    </div>
+                        </div>
                     </div>                     
                 </div>
             ))}     
