@@ -52,7 +52,7 @@
     height: 100%;
     border-radius: 5px 5px 0px 0px;
   }
-  
+
   .card-content{
     width: auto;
     height: auto;
@@ -94,6 +94,7 @@
     display: flex;
    justify-content: space-between;
     align-items:center;
+    padding-top:20px;
   }
   .card-info .card-details {
     width:28px;
@@ -113,8 +114,8 @@
   
  .card-details .icon-button {
     color: white;
-    padding: 5px;
-    height: 20px;
+    padding: 7px;
+    height: 16px;
   }
   .icon-button:hover {
     cursor:pointer;
