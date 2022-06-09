@@ -1,3 +1,4 @@
+import Modal from '../Modal/Modal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Card.css';
 import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +27,7 @@ const Card = ({recipes, loading}) => {
                             <div className='card-time'><FontAwesomeIcon className='icon' icon={faClock} />{ recipe.time } min</div>
                             <div className='card-serving'><FontAwesomeIcon className='icon' icon={faUtensils} />{ recipe.people } persons</div>
                             <div className='card-like'><FontAwesomeIcon className='icon' icon={faStar} />{ recipe.likes }</div>
-                            <div className='card-details'> <FontAwesomeIcon className='icon-button' icon={faAnglesRight} /> </div>
+                            <div className='card-details'> <FontAwesomeIcon className='icon-button' icon={faAnglesRight} /></div>
                         </div>
                     </div>                     
                 </div>

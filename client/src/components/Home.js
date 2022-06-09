@@ -37,6 +37,7 @@ function App() {
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
   
   const paginate = pageNumber =>setCurrentPage(pageNumber)
   //https://www.youtube.com/watch?v=IYCa1F-OWmk
