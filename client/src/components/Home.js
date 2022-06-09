@@ -13,7 +13,8 @@ function App() {
   const [loading, setLoading]= useState(false);
   const [currentPage, setCurrentPage]= useState(1);
   const [recipesPerPage]= useState(3);
-  const [openModal, setOpenModal]= useState(false);
+  
+
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -39,9 +40,7 @@ function App() {
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
 
-  const handleModal = () => {
-    setOpenModal(true);
-  };
+
 
   
   const paginate = pageNumber =>setCurrentPage(pageNumber)
@@ -52,18 +51,17 @@ function App() {
       return (
         <>
        
-          <Modal open={openModal} onClose={()=>setOpenModal(false)}/>
-             
+              
           <div className='homecontainer'>
           <SectionHeader title={'Fresh & New'}/>
-          <Card recipes={currentRecipes} loading={loading} handleModal={handleModal}/>
+          <Card recipes={currentRecipes} loading={loading} />
         </div>
         <div className='homecontainer'>
           <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate}/>
         </div>
         <div className='homecontainer'>
           <SectionHeader title={'Most Popular'}/>
-          <Card recipes={popularRecipes} loading={loading} handleModal={handleModal}/>
+          <Card recipes={popularRecipes} loading={loading} />
         </div>
 
         </>
