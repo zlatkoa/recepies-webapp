@@ -5,7 +5,7 @@ import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-so
 const settings = require ('../../../settings/settings.json');
 
 
-const Card = ({recipes, loading}) => {
+const Card = ({recipes, loading, handleModal}) => {
 
     if (loading){
         return <h2>Loading ...</h2>;
@@ -27,7 +27,7 @@ const Card = ({recipes, loading}) => {
                             <div className='card-time'><FontAwesomeIcon className='icon' icon={faClock} />{ recipe.time } min</div>
                             <div className='card-serving'><FontAwesomeIcon className='icon' icon={faUtensils} />{ recipe.people } persons</div>
                             <div className='card-like'><FontAwesomeIcon className='icon' icon={faStar} />{ recipe.likes }</div>
-                            <div className='card-details'> <FontAwesomeIcon className='icon-button' icon={faAnglesRight} /></div>
+                            <div className='card-details' onClick={()=>handleModal()}> <FontAwesomeIcon className='icon-button' icon={faAnglesRight} /></div>
                         </div>
                     </div>                     
                 </div>
@@ -38,3 +38,4 @@ const Card = ({recipes, loading}) => {
 };
 
 export default Card;
+

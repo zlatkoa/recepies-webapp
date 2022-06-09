@@ -38,6 +38,11 @@ function App() {
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
+
+  const handleModal = () => {
+    setOpenModal(true);
+  };
+
   
   const paginate = pageNumber =>setCurrentPage(pageNumber)
   //https://www.youtube.com/watch?v=IYCa1F-OWmk
@@ -46,21 +51,19 @@ function App() {
     if (recipes){
       return (
         <>
-        <div>
-          <button onClick={()=>setOpenModal(true)}>Modal</button>
+       
           <Modal open={openModal} onClose={()=>setOpenModal(false)}/>
-        </div>   
-        
+             
           <div className='homecontainer'>
           <SectionHeader title={'Fresh & New'}/>
-          <Card recipes={currentRecipes} loading={loading}/>
+          <Card recipes={currentRecipes} loading={loading} handleModal={handleModal}/>
         </div>
         <div className='homecontainer'>
           <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate}/>
         </div>
         <div className='homecontainer'>
           <SectionHeader title={'Most Popular'}/>
-          <Card recipes={popularRecipes} loading={loading}/>
+          <Card recipes={popularRecipes} loading={loading} handleModal={handleModal}/>
         </div>
 
         </>
