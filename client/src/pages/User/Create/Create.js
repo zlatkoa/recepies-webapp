@@ -23,7 +23,7 @@ function App() {
     if(isDataFetched) {
         return (
             <div>
-                <h1>About page</h1>
+                <h1>User profile page</h1>
                 <p>Message from backend: { message }</p>
             </div>
         );

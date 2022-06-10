@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Card from './elements/Card/Card';
-import Pagination from './elements/Pagination/Pagination';
-import SectionHeader from './elements/Section/Section'
+import Card from '../../components/elements/Card/Card';
+import Pagination from '../../components/elements/Pagination/Pagination';
+import SectionHeader from '../../components/elements/Section/Section'
 import './Home.css';
-import Modal from '../components/elements/Modal/Modal'
+
 
 function App() {
   const [recipes, setRecipes] = useState([]);
