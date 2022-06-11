@@ -114,11 +114,19 @@ module.exports ={
       try{
         const category = req.params.category.toLowerCase();
         const recipes = await Recipe.find({ category: category } );
-        res.send({
-          error:false,
-          message: `Recepies from category #${req.params.category} `,
-          recipes : recipes
-        });
+        if (recipes.length>0){
+          res.send({
+            error: false,
+            message: `Recipes for the category ${req.params.category}`,
+            recipes: recipes
+          })
+        }else{
+          res.send({
+            error:true,
+            message: `There are no recepies from category #${req.params.category} `,
+            recipes : recipes
+          });
+        }
       }
       catch(error){
         response( res, 500,

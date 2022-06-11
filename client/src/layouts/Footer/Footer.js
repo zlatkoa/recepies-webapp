@@ -7,16 +7,16 @@ function App() {
       <footer>
         <div className="footercontainer">
             <div className="footeritem1">
-              <img src={logo} /> 
+              <a href="/"><img src={logo} /></a> 
             </div>
             <div className="footeritem2">
-              <a href="/"> Breakfast </a> 
+              <a href="/recipes/breakfast"> Breakfast </a> 
                <div className="fseparator">&#9679;</div>
-              <a href="/">Brunch</a> 
+              <a href="/recipes/brunch">Brunch</a> 
               <div className="fseparator">&#9679;</div>
-              <a href="/">Lunch</a> 
+              <a href="/recipes/lunch">Lunch</a> 
               <div className="fseparator">&#9679;</div>
-              <a href="/">Dinner</a> 
+              <a href="/recipes/dinner">Dinner</a> 
              </div>
             <div className="footeritem3"><p>Baby's Food Place <br/>copyright &copy; 2021</p> </div>
           </div>      

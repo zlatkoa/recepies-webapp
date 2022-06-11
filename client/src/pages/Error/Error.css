@@ -1,0 +1,22 @@
+.container {
+    width: 1247px;
+    height:250px;
+    letter-spacing: 0px;
+    color: black; 
+    display: flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items: center;
+    margin: auto;  
+}
+
+.link{
+    color: red;
+    margin: 20px;
+    font-weight:bolder;    
+}
+
+.container img {
+    width:200px;
+}

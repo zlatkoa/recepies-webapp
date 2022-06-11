@@ -14,6 +14,7 @@
   left: 0;
   top: 0;
   overflow: auto;
+  
 }
 
 .modalContainer {
@@ -32,6 +33,7 @@
   border-radius: 5px;
   border: 1px solid #D8D8D8;
   box-sizing: border-box;
+  transition: 2s;
 }
 
 .modal-header {

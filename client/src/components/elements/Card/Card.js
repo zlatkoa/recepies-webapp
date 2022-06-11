@@ -28,7 +28,7 @@ const Card = ({recipes, loading}) => {
             <Modal open={openModal} modalRecipe={modalRecipe} onClose={()=>setOpenModal(false)}/>
             <div className='cards'>
                 {recipes.map((recipe)=> (
-                    <div className='card-wrapper'>            
+                    <div className='card-wrapper' key={recipe.id}>            
                         <div className='card-top'>
                             <div className='card-category'>{ recipe.category }</div>
                             <img className='card-image' src={ settings.url+recipe.picture }></img>

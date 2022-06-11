@@ -15,6 +15,7 @@
 .section-title h1{
     font: normal normal bold 36px/48px Roboto Slab;
     color:#96BB36;   
+    text-transform: capitalize;
 }
 
 .section-line {

@@ -4,3 +4,7 @@ body{
 .appbody {
   background-color: #F8F7F2;
 }
+
+.errortxt{
+  color:black;
+}
