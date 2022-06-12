@@ -1,4 +1,5 @@
 import { useState }  from 'react';
+import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Card.css';
@@ -16,21 +17,20 @@ const Card = ({recipes, loading}) => {
         setOpenModal(true);
         setModalRecipe(recipe);
     };
-    
+  
 
     if (loading){
         return <h2>Loading ...</h2>;
     }
    
-     
     return (
         <>
             <Modal open={openModal} modalRecipe={modalRecipe} onClose={()=>setOpenModal(false)}/>
             <div className='cards'>
                 {recipes.map((recipe)=> (
-                    <div className='card-wrapper' key={recipe.id}>            
+                    <div className='card-wrapper' key={recipe._id}>            
                         <div className='card-top'>
-                            <div className='card-category'>{ recipe.category }</div>
+                            <Link to={"/recipes/"+recipe.category}><div className='card-category'>{ recipe.category }</div></Link>
                             <img className='card-image' src={ settings.url+recipe.picture }></img>
                         </div>
                         <div className='card-content'>
