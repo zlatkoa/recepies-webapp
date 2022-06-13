@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SectionHeader from '../../../components/elements/Section/Section'
 import './New.css';
+import { useNavigate } from "react-router-dom";
+
+
 
 
 
@@ -15,6 +18,7 @@ function App() {
     const [creator, setCreator] = useState ('629e3bdfa6c981b77e64ea19');
     const [picture, setPicture]= useState ('');
     const [isPending, setIsPending]=useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -39,6 +43,9 @@ function App() {
                 }
             });
             setIsPending(false);
+            //resetForm();
+            navigate('/');
+                        
         }catch(err){
             if(err.response.stauts===500){
                 setIsPending(false);
@@ -52,10 +59,21 @@ function App() {
  
     }
 
+    const resetForm = () => {
+        setTitle('');
+        setCategory('breakfast');
+        setTime('');
+        setPeople('');
+        setDescription('');
+        setContent('');
+        setPicture('');    
+    };
+
     return (
         <form onSubmit ={handleSubmit}>
             <label>Recipe Image</label>
-            <img src={URL.createObjectURL(picture)}></img>
+           
+            {picture && <img src={URL.createObjectURL(picture)}></img>}
             <input
                 type="file"
                 required

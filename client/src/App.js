@@ -9,8 +9,10 @@ import Navbar from "./layouts/Navbar/Navbar";
 import Footer from "./layouts/Footer/Footer";
 import Profile from "./pages/User/Profile/Profile";
 import Category from "./pages/Category/Category";
-import Error from "./pages/Error/Error"
-import NewRecipe from "./pages/Recipes/New/New"
+import Error from "./pages/Error/Error";
+import NewRecipe from "./pages/Recipes/New/New";
+import Create from "./pages/User/Create/Create";
+import Login from "./pages/User/Login/Login";
 
 function App() {
   return ( 
@@ -21,6 +23,8 @@ function App() {
         <Route path="/user" element={<Profile />} />
         <Route path="/recipes/:category" element={<Category />} />  
         <Route path="/recipes/new" element={<NewRecipe />} />
+        <Route path="/user/new" element={<Create />} />
+        <Route path="/user/login" element={<Login />} />
         <Route path="*" element ={<Error />} />      
       </Routes>
       <Footer /> 
