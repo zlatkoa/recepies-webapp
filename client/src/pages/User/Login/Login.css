@@ -1,0 +1,30 @@
+.content-container{
+  display:flex;
+  margin-bottom: 323px;
+}
+
+.container-left{
+  width:50%;
+  box-sizing: border-box;
+  margin-top:43px;
+  margin-right:143px;
+}
+.container-right{
+  width:294px;
+  box-sizing: border-box;
+  margin-top:43px;
+  margin-right:143px;
+}
+
+.input-form{
+  margin-bottom:30px;
+  margin-top: 10px;
+}
+
+.header1 {
+  margin-bottom: 27px;
+}
+
+.header1 p {
+  display: inline;
+}

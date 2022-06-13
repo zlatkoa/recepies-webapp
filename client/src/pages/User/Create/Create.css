@@ -1,0 +1,53 @@
+.content-container{
+  display:flex;
+  margin-bottom: 202px;
+}
+
+.container-left-create{
+  width:55%;
+  box-sizing: border-box;
+  margin-top:43px;
+  margin-right:114px;
+}
+.container-right-create{
+  width:100%;
+  box-sizing: border-box;
+  margin-top:43px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 200px;
+}
+
+
+.input-form{
+  margin-bottom:30px;
+  margin-top: 10px;
+
+}
+
+.header1 {
+  margin-bottom: 27px;
+}
+
+.header1 p {
+  display: inline;
+}
+
+.container-form{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-right:50px;
+}
+.container-form-left{
+  box-sizing: border-box;
+  width: 50%;
+  padding-right:33px;
+}
+.container-form-right{
+  box-sizing: border-box;
+  width: 50%;
+  padding-right:33px;
+}

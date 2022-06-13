@@ -4,7 +4,7 @@ import axios from 'axios';
 import Card from '../../components/elements/Card/Card';
 import Pagination from '../../components/elements/Pagination/Pagination';
 import SectionHeader from '../../components/elements/Section/Section'
-import '../Home/Home.css';
+
 
 
 function App() {
@@ -44,11 +44,11 @@ function App() {
       return (
         <>     
               
-          <div className='homecontainer'>
+          <div className='page-container'>
           <SectionHeader title={params.category}/>
           <Card recipes={currentRecipes} loading={loading} />
         </div>
-        <div className='homecontainer'>
+        <div className='page-container'>
           <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate}/>
         </div>        
 
@@ -63,7 +63,7 @@ function App() {
 
   }else{
     return (
-      <div className='homecontainer'>
+      <div className='page-container'>
         <div> Loading posts from the server, please wait ... </div>
       </div>        
     );

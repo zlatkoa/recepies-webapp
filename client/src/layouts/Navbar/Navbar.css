@@ -69,33 +69,4 @@ a, a:hover, a:focus, a:active {
   font: normal normal 900 16px/21px Roboto;  
 }
 
-.login-button{
-  width:108px;
-  height:44px;
-  border: 1px solid #A5A5A5;
-  background-color: inherit;
-  border-radius: 5px;
-  font: normal normal 900 16px/21px Roboto;
-  color: #A5A5A5;
-  text-transform: uppercase;
-}
 
-.login-button:hover {
-  border: 1px solid orange;
-  color: orange;
-}
-.create-account{
-  width:179px;
-  height:44px;
-  border: 0px solid #A5A5A5;
-  background-color: #96BB36;
-  border-radius: 5px;
-  font: normal normal 900 16px/21px Roboto;
-  color: white;
-  text-transform: uppercase;
-  box-shadow: 0px 3px 6px #00000029;
-}
-
-.create-account:hover{
-  background-color: orange;
-}

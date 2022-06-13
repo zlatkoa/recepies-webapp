@@ -46,31 +46,50 @@ function App() {
     }
 
     return (
-        <form onSubmit ={handleSubmit}>
-            { showMessage && <h1>{message}</h1> }
-    
-            
-            <label>Email</label>
-              <input
-                type="email"
-                required
-                value ={email}
-                onChange={(e)=> setEmail(e.target.value)}
-            />           
-             <label>Password</label>
-              <input
-                type="password"
-                required
-                value ={password}
-                onChange={(e)=> setPassword(e.target.value)}
-            />
-             
-           
-            { !isPending && <button>Log in</button> }
-            { isPending && <button disabled>Logging...</button>}      
-            
-         
-        </form>
+        <>
+        <div className='page-container'>
+            <SectionHeader title={'Login'}/>
+            <div className='content-container'>
+                <div className='container-left'>                    
+                    <h1 className='header1'>
+                        <p className='orange-text'>Wellcome to</p><p className='black-text'> Baby's</p>
+                    </h1>
+                    <p>
+                    Log in to your account so you can share your delicious ideas with the world.
+                    If you still do not have an account, then click on the create account button 
+                    and in just a few clicks you will be able to share delicious recipes with the 
+                    whole world. Your account is also your virtual notebook with cooking recipes 
+                    that you can keep and share with your friends forever. Do you like someone's 
+                    recipe? Click on the star, and you immediately have it in the list of your 
+                    favorite recipes.
+                    </p>
+                </div>
+                <div className='container-right'>
+                    <form onSubmit ={handleSubmit}>
+                        { showMessage && <h1>{message}</h1> }           
+                        <label className='input-label'>Email</label>
+                        <input
+                            className='input-form'
+                            type="email"
+                            required
+                            value ={email}
+                            onChange={(e)=> setEmail(e.target.value)}
+                        />           
+                        <label className='input-label'>Password</label>
+                        <input
+                            className='input-form'
+                            type="password"
+                            required
+                            value ={password}
+                            onChange={(e)=> setPassword(e.target.value)}
+                        />
+                        { !isPending && <button className='green-button'>Log in</button> }
+                        { isPending && <button className='green-button' disabled>Logging...</button>}      
+                    </form>
+                </div>
+            </div>
+        </div>
+        </>
 
      
 

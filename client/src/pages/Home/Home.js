@@ -52,14 +52,14 @@ function App() {
         <>
        
               
-          <div className='homecontainer'>
+          <div className='page-container'>
           <SectionHeader title={'Fresh & New'}/>
           <Card recipes={currentRecipes} loading={loading} />
         </div>
-        <div className='homecontainer'>
+        <div className='page-container'>
           <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate}/>
         </div>
-        <div className='homecontainer'>
+        <div className='page-container'>
           <SectionHeader title={'Most Popular'}/>
           <Card recipes={popularRecipes} loading={loading} />
         </div>
@@ -69,7 +69,7 @@ function App() {
       );        
     }else{
       return (
-        <div className='homecontainer'>
+        <div className='page-container'>
           <div>Database is empty. </div>
         </div>
       );

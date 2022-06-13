@@ -18,9 +18,13 @@ function App() {
               <a href="/recipes/dinner">Dinner</a> 
              </div>
             <div className="navbaritem3">
-                <button className='login-button'>Log in</button>
+                <a href="/user/login">
+                  <button className='outlined-button'>Log in</button>
+                </a>
                 <span><p>or</p></span>
-                <button className='create-account'>Create acount</button>
+                <a href="/user/new">
+                  <button className='green-button'>Create acount</button>
+                </a>
             </div>
           </div>      
       </nav>

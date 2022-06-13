@@ -51,58 +51,103 @@ function App() {
     }
 
     return (
-        <form onSubmit ={handleSubmit}>
-            { showMessage && <h1>{message}</h1> }
-    
-            <label>First Name</label>
-            <input
-                type="text"
-                required
-                value ={first_name}
-                onChange={(e)=> setFirst_name(e.target.value)}
-            />
-            <label>Second Name</label>
-            <input
-                type="text"
-                required
-                value ={last_name}
-                onChange={(e)=> setLast_name(e.target.value)}
-            />
-            <label>Email</label>
-              <input
-                type="email"
-                required
-                value ={email}
-                onChange={(e)=> setEmail(e.target.value)}
-            />
-            <label>birthday</label>
-              <input
-                type="date"
-                required
-                value ={birthday}
-                onChange={(e)=> setBirthday(e.target.value)}
-            />
-             <label>Password</label>
-              <input
-                type="password"
-                required
-                value ={password}
-                onChange={(e)=> setPassword(e.target.value)}
-            />
-             <label>Repeat password</label>
-              <input
-                type="password"
-                required
-                value ={repeatPassword}
-                onChange={(e)=> setRepeatPassword(e.target.value)}
-            />
-           
-            { !isPending && <button>Create account</button> }
-            { isPending && <button disabled>Craating...</button>}      
-
-            
-         
-        </form>
+      <>
+      <div className='page-container'>
+        <SectionHeader title={'Create Account'}/>
+          { showMessage && <h1>{message}</h1> }    
+          <div className='content-container'>               
+            <div className='container-left-create'>                    
+              <h1 className='header1'>
+                <p className='orange-text'>Create your</p><p className='black-text'> account</p>
+              </h1>
+              <p>
+                Create account so you can share your delicious ideas with the world.
+                Your account is also your virtual notebook with cooking recipes 
+                that you can keep and share with your friends forever. 
+              </p>
+            </div>              
+            <div className='container-right-create'>
+              <form onSubmit ={handleSubmit}>
+                <div className='container-form'>               
+                  <div className='container-form-left'>
+                    <div className='container-item'> 
+                    </div>
+                    <div className='container-item'>              
+                      <label className='input-label'>First Name</label>
+                      <input
+                          className='input-form'
+                          type="text"
+                          required
+                          value ={first_name}
+                          onChange={(e)=> setFirst_name(e.target.value)}
+                      />                
+                    </div>
+                    
+                    <div className='container-item'>
+                      <label className='input-label'>Email</label>
+                        <input
+                            className='input-form'
+                          type="email"
+                          required
+                          value ={email}
+                          onChange={(e)=> setEmail(e.target.value)}
+                      />
+                    </div>
+                    <div className='container-item'>
+                      <label className='input-label'>Password</label>
+                        <input
+                            className='input-form'
+                          type="password"
+                          required
+                          value ={password}
+                          onChange={(e)=> setPassword(e.target.value)}
+                      />
+                    </div>
+                    <div className='container-item'>
+                      { !isPending && <button className='green-button'>Create account</button> }
+                      { isPending && <button className='green-button' disabled>Creating...</button>}      
+                    </div>
+                  </div>
+                  <div className='container-form-right'>
+                  <div className='container-item'>  
+                      <label className='input-label'>Second Name</label>
+                      <input
+                          className='input-form'
+                          type="text"
+                          required
+                          value ={last_name}
+                          onChange={(e)=> setLast_name(e.target.value)}
+                      />
+                    </div>
+                    <div className='container-item'>
+                      <label className='input-label'>birthday</label>
+                        <input
+                            className='input-form'
+                          type="date"
+                          required
+                          value ={birthday}
+                          onChange={(e)=> setBirthday(e.target.value)}
+                      />
+                    </div>
+                    
+                    <div className='container-item'>
+                      <label className='input-label'>Repeat password</label>
+                        <input
+                            className='input-form'
+                          type="password"
+                          required
+                          value ={repeatPassword}
+                          onChange={(e)=> setRepeatPassword(e.target.value)}
+                      />           
+                    </div>
+                  </div>
+                </div>               
+              </form>
+            </div>
+          </div>
+      </div>
+        
+      </>
 
      
 
