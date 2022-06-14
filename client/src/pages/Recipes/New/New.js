@@ -15,7 +15,7 @@ function App() {
     const [people, setPeople] = useState ('');
     const [description, setDescription] = useState ('');
     const [content, setContent] = useState ('');
-    const [creator, setCreator] = useState ('629e3bdfa6c981b77e64ea19');
+    const [creator, setCreator] = useState ('62a7b0b14ca10b60e3a7f10e');
     const [picture, setPicture]= useState ('');
     const [isPending, setIsPending]=useState(false);
     const navigate = useNavigate();
@@ -70,72 +70,100 @@ function App() {
     };
 
     return (
-        <form onSubmit ={handleSubmit}>
-            <label>Recipe Image</label>
-           
-            {picture && <img src={URL.createObjectURL(picture)}></img>}
-            <input
-                type="file"
-                required
-                onChange={(e)=> setPicture(e.target.files[0])}
-                
-            />
-            <label>Recipe Title</label>
-            <input
-                type="text"
-                required
-                value ={title}
-                onChange={(e)=> setTitle(e.target.value)}
-            />
-            <label>Category</label>
-            <select
-            value = {category}
-            onChange ={(e)=> setCategory(e.target.value)}>
-                <option value="breakfast">Breakfast</option>
-                <option value="brunch">Brunch</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-            </select>
-            <label>Preparation Time</label>
-            <input
-                type="number"
-                required
-                value ={time}
-                onChange={(e)=> setTime(e.target.value)}
-            />
-            <label>No. People</label>
-            <input
-                type="number"
-                required
-                value ={people}
-                onChange={(e)=> setPeople(e.target.value)}
-            />
-             <label>Short Description</label>
-            <input
-                type="textarea"
-                required
-                value ={description}
-                onChange={(e)=> setDescription(e.target.value)}
-            />
-               <label>Recipe</label>
-            <input
-                type="textarea"
-                required
-                value ={content}
-                onChange={(e)=> setContent(e.target.value)}
-            />
-            { !isPending && <button>Save</button> }
-            { isPending && <button disabled>Saving...</button>}      
+        <div className="page-container">
+            <SectionHeader title={'My Recipes'}/>
+            <div className="form-container">
+                <form onSubmit ={handleSubmit}>
+                    <div className="form-left">
+                        <label className='input-label'>Recipe Image</label>
+                        <div className="recipe-image">
+                            {picture && <img src={URL.createObjectURL(picture)}></img>}
+                        </div>
+                        
+                        <label className='file-label' for="file">Upload Image </label>
+                        
+                        <input
+                            id="file"
+                            className='input-file'
+                            type="file"
+                            accept="image/*"
+                            required
+                            onChange={(e)=> setPicture(e.target.files[0])}                        
+                        />
+                    </div>
+                    <div className="form-middle">
+                        <label className='input-label'>Recipe Title</label>
+                        <input
+                            className='input-form'
+                            type="text"
+                        
+                            required
+                            value ={title}
+                            onChange={(e)=> setTitle(e.target.value)}
+                        />
+                        <div className="form-middle-items">
+                            <div className="left-item">
+                                <label className='input-label'>Category</label>
+                                <select
+                                className='input-form'
+                                value = {category}
+                                onChange ={(e)=> setCategory(e.target.value)}>
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="brunch">Brunch</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                </select>
+                            </div>
+                            <div className="middle-item">
+                                <label className='input-label'>Preparation Time</label>
+                                <input
+                                    className='input-form'
+                                    type="number"
+                                    required
+                                    value ={time}
+                                    onChange={(e)=> setTime(e.target.value)}
+                                />
+                            </div>
+                            <div className="right-item">
+                                <label className='input-label'>No. People</label>
+                                <input
+                                    className='input-form'
+                                    type="number"
+                                    required
+                                    value ={people}
+                                    onChange={(e)=> setPeople(e.target.value)}
+                                />
+                            </div>
+                        </div>                        
+                        <label className='input-label'>Short Description</label>
+                        <textarea
+                            className='input-form text-area1'
+                            rows="5"
+                            cols="50"
+                            required
+                            value ={description}
+                            onChange={(e)=> setDescription(e.target.value)}
+                        />
+                        { !isPending && <button className='green-button'>Save</button> }
+                        { isPending && <button className='green-button' disabled>Saving...</button>}
+                    </div>
+                    <div className="form-right">                   
+                        
+                        <label className='input-label'>Recipe</label>
+                        <textarea
+                            className='input-form text-area'
+                            rows="35"
+                            cols="50"
+                            required
+                            value ={content}
+                            onChange={(e)=> setContent(e.target.value)}
+                        />     
+                    </div>     
+                </form>
+            </div>
 
-            
-         
-        </form>
-
-     
-
-        
-    );
-  
+        </div>
+    );  
 }
   
 export default App;

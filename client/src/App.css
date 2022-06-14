@@ -94,3 +94,26 @@ body{
 .black-text{
   color: #626262;
 }
+input[type="file"]{
+  display:none;
+}
+
+.file-label{
+  width:234px;
+  height:32px;
+  border: 1px solid #A5A5A5;
+  background-color: inherit;
+  border-radius: 5px;
+  font: normal normal normal 14px/19px Roboto;;
+  color: #A5A5A5;
+  text-transform: uppercase;
+  padding-left: 67px;
+  padding-right: 67px;
+  padding-top:6px;
+  padding-bottom:7px;
+}
+
+.file-label:hover{
+  background-color: orange;
+  color: white;
+}

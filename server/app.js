@@ -14,9 +14,9 @@ require('dotenv').config();
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/recipes-app');
+mongoose.connect(`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.m9uhc.mongodb.net/?retryWrites=true&w=majority`);
 
-app.use(cors())
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -45,5 +45,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// MONGODB_USERNAME=recipeappuser
+// MONGODB_PASSWORD=asx0PO5REOTDFYcL
+// MONGODB_DBNAME=recipeappDB
 
 module.exports = app;

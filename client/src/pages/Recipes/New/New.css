@@ -1,0 +1,65 @@
+.form-container form{
+    display:flex;
+    flex-direction: row;
+    margin-bottom:174px;
+    gap:36px;
+}
+
+
+.form-left .recipe-image{
+    width: 234px;
+    height: 147px;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #A5A5A5;
+    border-radius: 5px;
+    opacity: 1;
+    margin-bottom: 17px;
+    margin-top:10px;
+  
+}
+
+
+      
+.form-left .recipe-image img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.form-middle {
+    box-sizing: border-box;
+    width: 562px;
+
+    
+}
+
+.form-right{
+   width: 327px;
+}
+
+.form-middle-items{
+    display:flex;
+    flex-direction:row;
+    gap:27px;
+}
+
+.left-item {
+    width:100%;
+}
+
+.middle-item{
+    width:100%;   
+}
+
+.right-item{
+    width:100%;
+}
+
+.text-area1{
+    height: 96px;
+   
+}
+
+.text-area{
+    height: 284px;    
+}
