@@ -3,8 +3,9 @@ const User = require('../models/user');
 const Recipe = require('../models/recipe');
 const Like = require ('../models/like');
 const response = require('../lib/response_handler');
-const user = require('../models/user');
 const req = require('express/lib/request');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 
 module.exports ={
@@ -36,12 +37,50 @@ module.exports ={
           'User with the email: '+req.body.email+' allready exists in the database' 
         );
       }  
-      //req.body.password = bcrypt.hashSync(req.body.password);
+      req.body.password = bcrypt.hashSync(req.body.password);
   
       user = await User.create(req.body);  
       response(res, 201, 'New user has been created', { user });
     } 
     catch (error) {
+      response(res, 500, error.msg);
+    }
+  },
+
+  login:
+  async (req, res) => {
+    try {
+      /**
+       * Tuka korisnikot ispratil email i password
+       * 1. Od baza probaj da zemes korisnik so dadeniot email
+       * 2. Treba da proveram dali postoi korisnik so toj email
+       * 2.a. Dokolku postoi, da gi sporedam password-ite
+       * 2.a.1 Dokolku passwordite se ok, vrakjam token
+       * 2.a.2 Dokolku passwordite ne se ok, vrakjam response za invalid credentials
+       * 2.b. Dokolku ne postoi, da vratam nekakov response za invalid credentials
+       */
+      const user = await User.findOne({ email: req.body.email });
+      if (user) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          // token = plain data (JSON payload) + secret key za potpisuvanje na token + config options
+          const payload = {
+            id: user._id,
+            email: user.email,
+            first_name: user.first_name
+          }
+  
+          const token = jwt.sign(payload, '1234', {
+            expiresIn: '50m'
+          });
+  
+          response(res, 200, 'You have logged in successfully', { token })
+        } else {
+          response(res, 401, 'Invalid credentials');
+        }
+      } else {
+        response(res, 401, 'Invalid credentials');
+      }
+    } catch (error) {
       response(res, 500, error.msg);
     }
   },

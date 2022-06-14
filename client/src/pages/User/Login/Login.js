@@ -21,15 +21,16 @@ function App() {
         e.preventDefault();
         setIsPending(true);
 
-        const payload = { email, password}       
+        const reqBody = { email, password }; 
 
         try{
-            const res = await axios.post('http://localhost:3000/users', payload, {
+            const res = await axios.post('http://localhost:3000/users/login', reqBody, {
                 headers :{
                     'Content-Type': 'application/json'
                 }
             });
             setIsPending(false);
+            console.log(res.data.token);
             //navigate('/');
                         
         }catch(err){
