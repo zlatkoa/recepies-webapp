@@ -1,14 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SectionHeader from '../../../components/elements/Section/Section'
 import './Login.css';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { setCredentials} from '../../../features/auth/authApiSlice';
-
-
-//https://www.youtube.com/watch?v=-JJFQ9bkUbo&t=109s
-//26:07
 
 
 
