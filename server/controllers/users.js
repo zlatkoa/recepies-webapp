@@ -69,8 +69,8 @@ module.exports ={
             first_name: user.first_name
           }
   
-          const token = jwt.sign(payload, '1234', {
-            expiresIn: '50m'
+          const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
+            expiresIn: '5d'
           });
   
           response(res, 200, 'You have logged in successfully', { token })

@@ -11,9 +11,9 @@ router.use(jwt({
       secret: process.env.JWT_SECRET_KEY,
       algorithms: ['HS256'] 
 }).unless({
-      path: [
+      path: [           
             {
-                  url: '/recipes/^\/category\/.*/', methods: ['GET']
+                  url: /^\/recipes\/category\/.*/, methods: ['GET']
             },
             {
                   url: '/recipes/popular', methods: ['GET']
@@ -31,7 +31,7 @@ router.use(jwt({
 router.use((err, req, res, next) => {
       console.log(err.name);
       if (err.name === 'UnauthorizedError') {
-            response(res, 401, 'Unauthorized access');
+            response(res, 401, 'Unauthorized access');         
       }
 })
 
