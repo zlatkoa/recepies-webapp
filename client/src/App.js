@@ -1,4 +1,4 @@
-import {Routes, Route } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import './App.css';
 import "@fontsource/roboto"
 import "@fontsource/roboto-slab"; 
@@ -16,19 +16,21 @@ import Login from "./pages/User/Login/Login";
 
 function App() {
   return ( 
-    <div className="appbody">  
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} /> 
-        <Route path="/user" element={<Profile />} />
-        <Route path="/recipes/:category" element={<Category />} />  
-        <Route path="/recipes/new" element={<NewRecipe />} />
-        <Route path="/user/new" element={<Create />} />
-        <Route path="/user/login" element={<Login />} />
-        <Route path="*" element ={<Error />} />      
-      </Routes>
-      <Footer /> 
-    </div>
+    <> 
+      <div className="appbody">  
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} /> 
+          <Route path="/user" element={<Profile />} />
+          <Route path="/recipes/:category" element={<Category />} />  
+          <Route path="/recipes/new" element={<NewRecipe />} />
+          <Route path="/user/register" element={<Create />} />
+          <Route path="/user/login" element={<Login />} />
+          <Route path="*" element ={<Error />} />      
+        </Routes>
+        <Footer /> 
+      </div>     
+    </>
 
   );
 }

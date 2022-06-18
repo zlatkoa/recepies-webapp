@@ -1,30 +1,31 @@
 import './Navbar.css';
 import logo from '../../media/logo/logoheader.jpg'
+import {Link} from 'react-router-dom'
 
 function App() {
   return (
       <nav>
         <div className="navbarcontainer">
             <div className="navbaritem1">
-              <a href="/"><img src={logo} /></a> 
+              <Link to="/"><img src={logo} /></Link> 
             </div>
             <div className="navbaritem2">
-              <a href="/recipes/breakfast"> Breakfast </a> 
+              <Link to="/recipes/breakfast"> Breakfast </Link> 
               <div className="separator">&#9679;</div>
-              <a href="/recipes/brunch">Brunch</a> 
+              <Link to="/recipes/brunch">Brunch</Link> 
               <div className="separator">&#9679;</div>
-              <a href="/recipes/lunch">Lunch</a> 
+              <Link to="/recipes/lunch">Lunch</Link> 
               <div className="separator">&#9679;</div>
-              <a href="/recipes/dinner">Dinner</a> 
+              <Link to="/recipes/dinner">Dinner</Link> 
              </div>
             <div className="navbaritem3">
-                <a href="/user/login">
+                <Link to="/user/login">
                   <button className='outlined-button'>Log in</button>
-                </a>
+                </Link>
                 <span><p>or</p></span>
-                <a href="/user/new">
+                <Link to="/user/register">
                   <button className='green-button'>Create acount</button>
-                </a>
+                </Link>
             </div>
           </div>      
       </nav>

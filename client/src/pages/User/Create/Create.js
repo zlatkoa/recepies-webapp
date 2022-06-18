@@ -9,52 +9,75 @@ import { useNavigate } from "react-router-dom";
 
 
 function App() {
-    const [first_name, setFirst_name] = useState ('');
-    const [last_name, setLast_name] = useState ('');
-    const [email, setEmail] = useState ('');
-    const [birthday, setBirthday] = useState ('');
-    const [password, setPassword] = useState ('');
-    const [repeatPassword, setRepeatPassword] = useState ('');
-    const [isPending, setIsPending]=useState(false);
-    const [showMessage, setShowMessage]=useState(false);
-    const [message, setMessage]=useState('');
-    const navigate = useNavigate();
 
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
-        setIsPending(true);
+  const [formData, setFormData] = useState({
+    first_name : '',
+    last_name : '',
+    email : '',
+    birthday : '',
+    password : '',
+    password2 : ''
+  })
 
-        const payload = { first_name, last_name, email, birthday, password}       
+  const { first_name, last_name, email, birthday, password, password2 } = formData
 
-        try{
-            const res = await axios.post('http://localhost:3000/users', payload, {
-                headers :{
-                    'Content-Type': 'application/json'
-                }
-            });
-            setIsPending(false);
-            setMessage('Your account is created. Please go to the login page');
-            setShowMessage(true);
-            //navigate('/');
+  const onChange = (e) => {
+    setFormData((prevState)=>({
+      ...prevState,
+      [e.target.name]:e.target.value,
+    }))
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+  }
+
+
+    // const [first_name, setFirst_name] = useState ('');
+    // const [last_name, setLast_name] = useState ('');
+    // const [email, setEmail] = useState ('');
+    // const [birthday, setBirthday] = useState ('');
+    // const [password, setPassword] = useState ('');
+    // const [repeatPassword, setRepeatPassword] = useState ('');
+    // const [isPending, setIsPending]=useState(false);
+    // const [showMessage, setShowMessage]=useState(false);
+    // const [message, setMessage]=useState('');
+    // const navigate = useNavigate();
+
+    // const handleSubmit = async (e)=>{
+    //     e.preventDefault();
+    //     setIsPending(true);
+
+    //     const payload = { first_name, last_name, email, birthday, password}       
+
+    //     try{
+    //         const res = await axios.post('http://localhost:3000/users', payload, {
+    //             headers :{
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    //         setIsPending(false);
+    //         setMessage('Your account is created. Please go to the login page');
+    //         setShowMessage(true);
+    //         //navigate('/');
                         
-        }catch(err){
-            if(err.response.stauts===500){
-                setIsPending(false);
-                console.log('Problem with the server');
-            }else{
-                setIsPending(false);
-                console.log(err.response.data);
-            }
+    //     }catch(err){
+    //         if(err.response.stauts===500){
+    //             setIsPending(false);
+    //             console.log('Problem with the server');
+    //         }else{
+    //             setIsPending(false);
+    //             console.log(err.response.data);
+    //         }
 
-        }
+    //     }
  
-    }
+    // }
 
     return (
       <>
       <div className='page-container'>
-        <SectionHeader title={'Create Account'}/>
-          { showMessage && <h1>{message}</h1> }    
+        <SectionHeader title={'Create Account'}/>   
           <div className='content-container'>               
             <div className='container-left-create'>                    
               <h1 className='header1'>
@@ -67,7 +90,7 @@ function App() {
               </p>
             </div>              
             <div className='container-right-create'>
-              <form onSubmit ={handleSubmit}>
+              <form onSubmit ={onSubmit}>
                 <div className='container-form'>               
                   <div className='container-form-left'>
                     <div className='container-item'> 
@@ -78,68 +101,80 @@ function App() {
                           className='input-form'
                           type="text"
                           required
+                          name='first_name'
+                          placeholder='Enter your first name'
                           value ={first_name}
-                          onChange={(e)=> setFirst_name(e.target.value)}
+                          onChange={onChange}
                       />                
                     </div>
                     
                     <div className='container-item'>
                       <label className='input-label'>Email</label>
                         <input
-                            className='input-form'
+                          className='input-form'
                           type="email"
                           required
+                          name='email'
+                          placeholder='Enter your email'
                           value ={email}
-                          onChange={(e)=> setEmail(e.target.value)}
+                          onChange={onChange}
                       />
                     </div>
                     <div className='container-item'>
                       <label className='input-label'>Password</label>
                         <input
-                            className='input-form'
+                          className='input-form'
                           type="password"
                           required
                           value ={password}
-                          onChange={(e)=> setPassword(e.target.value)}
+                          name='password'
+                          placeholder='Enter your password'
+                          onChange={onChange}
                       />
                     </div>
+
                     <div className='container-item'>
-                      { !isPending && <button className='green-button'>Create account</button> }
-                      { isPending && <button className='green-button' disabled>Creating...</button>}      
+                      <button type='submit' className='green-button' disabled>Creating...</button>   
                     </div>
                   </div>
+
                   <div className='container-form-right'>
-                  <div className='container-item'>  
-                      <label className='input-label'>Second Name</label>
-                      <input
-                          className='input-form'
-                          type="text"
-                          required
-                          value ={last_name}
-                          onChange={(e)=> setLast_name(e.target.value)}
-                      />
-                    </div>
-                    <div className='container-item'>
-                      <label className='input-label'>birthday</label>
+                    <div className='container-item'>  
+                        <label className='input-label'>Second Name</label>
                         <input
                             className='input-form'
-                          type="date"
-                          required
-                          value ={birthday}
-                          onChange={(e)=> setBirthday(e.target.value)}
-                      />
-                    </div>
-                    
-                    <div className='container-item'>
-                      <label className='input-label'>Repeat password</label>
-                        <input
+                            type="text"
+                            required
+                            value ={last_name}
+                            name='last_name'
+                            placeholder='Enter your last name'
+                            onChange={onChange}
+                        />
+                      </div>
+                      <div className='container-item'>
+                        <label className='input-label'>birthday</label>
+                          <input
                             className='input-form'
-                          type="password"
-                          required
-                          value ={repeatPassword}
-                          onChange={(e)=> setRepeatPassword(e.target.value)}
-                      />           
-                    </div>
+                            type="date"
+                            required
+                            value ={birthday}
+                            name='birthday'
+                            placeholder='Enter your birth date'
+                            onChange={onChange}
+                        />
+                      </div>                    
+                      <div className='container-item'>
+                        <label className='input-label'>Repeat password</label>
+                          <input
+                            className='input-form'
+                            type="password"
+                            required
+                            value ={password2}
+                            name='password2'
+                            placeholder='Confirm your password'
+                            onChange={onChange}
+                        />           
+                      </div>
                   </div>
                 </div>               
               </form>

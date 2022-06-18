@@ -5,46 +5,61 @@ import './Login.css';
 import { useNavigate } from "react-router-dom";
 
 
-
-
-
 function App() {
+
+  const [formData, setFormData] = useState({
+    email : '',
+    password : ''
+  })
+
+  const { email, password } = formData
+
+  const onChange = (e) => {
+    setFormData((prevState)=>({
+      ...prevState,
+      [e.target.name]:e.target.value,
+    }))
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+  }
     
-    const [email, setEmail] = useState ('');
-    const [password, setPassword] = useState ('');
-    const [isPending, setIsPending]=useState(false);
-    const [showMessage, setShowMessage]=useState(false);
-    const [message, setMessage]=useState('');
-    const navigate = useNavigate();
+    // const [email, setEmail] = useState ('');
+    // const [password, setPassword] = useState ('');
+    // const [isPending, setIsPending]=useState(false);
+    // const [showMessage, setShowMessage]=useState(false);
+    // const [message, setMessage]=useState('');
+    // const navigate = useNavigate();
 
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
-        setIsPending(true);
+    // const handleSubmit = async (e)=>{
+    //     e.preventDefault();
+    //     setIsPending(true);
 
-        const reqBody = { email, password }; 
+    //     const reqBody = { email, password }; 
 
-        try{
-            const res = await axios.post('http://localhost:3000/users/login', reqBody, {
-                headers :{
-                    'Content-Type': 'application/json'
-                }
-            });
-            setIsPending(false);
-            console.log(res.data.token);
-            //navigate('/');
+    //     try{
+    //         const res = await axios.post('http://localhost:3000/users/login', reqBody, {
+    //             headers :{
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    //         setIsPending(false);
+    //         console.log(res.data.token);
+    //         //navigate('/');
                         
-        }catch(err){
-            if(err.response.stauts===500){
-                setIsPending(false);
-                console.log('Problem with the server');
-            }else{
-                setIsPending(false);
-                console.log(err.response.data);
-            }
+    //     }catch(err){
+    //         if(err.response.stauts===500){
+    //             setIsPending(false);
+    //             console.log('Problem with the server');
+    //         }else{
+    //             setIsPending(false);
+    //             console.log(err.response.data);
+    //         }
 
-        }
+    //     }
  
-    }
+    // }
 
     return (
         <>
@@ -66,15 +81,16 @@ function App() {
                     </p>
                 </div>
                 <div className='container-right'>
-                    <form onSubmit ={handleSubmit}>
-                        { showMessage && <h1>{message}</h1> }           
+                    <form onSubmit ={onSubmit}>        
                         <label className='input-label'>Email</label>
                         <input
                             className='input-form'
                             type="email"
                             required
                             value ={email}
-                            onChange={(e)=> setEmail(e.target.value)}
+                            name='email'
+                            placeholder='Enter your email address'
+                            onChange={onChange}
                         />           
                         <label className='input-label'>Password</label>
                         <input
@@ -82,10 +98,11 @@ function App() {
                             type="password"
                             required
                             value ={password}
-                            onChange={(e)=> setPassword(e.target.value)}
+                            name='password'
+                            placeholder='Enter your password'
+                            onChange={onChange}
                         />
-                        { !isPending && <button className='green-button'>Log in</button> }
-                        { isPending && <button className='green-button' disabled>Logging...</button>}      
+                        <button className='green-button' disabled>Logging...</button>   
                     </form>
                 </div>
             </div>
