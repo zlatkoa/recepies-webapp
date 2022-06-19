@@ -1,40 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
+import Spinner from '../../../components/elements/Spinner/Spinner'
+import { register, reset, logout } from '../../../features/auth/authSlice'
 
-function App() {
-    // Isprati HTTP req do server endpoint
-    const [message, setMessage] = useState(null);
-    const [isDataFetched, setIsDataFetched] = useState(false);
+function ProfilePage() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-    // React hook
-    useEffect(() => {
-        // call server
-        const sendRequest = async () => {
-            const res = await fetch('http://localhost:3000/message');
-            const data = await res.json();
-            
-            setMessage(data.message);
-            setIsDataFetched(true);
-        }
+  const { user, isError, message, isLoading } = useSelector((state) => state.auth)
+  
 
-        sendRequest();
-    }, []);
-    
-    // If message is not fetched from the server yet
-    if(isDataFetched) {
-        return (
-            <div>
-                <h1>User profile page</h1>
-                <p>Message from backend: { message }</p>
-            </div>
-        );
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
     }
 
-    return (
-      <div>
-          Loading...
-      </div>
-    );
+    if (!user) {
+      navigate('/user/login')
+    }
+
+    return () => {
+      dispatch(reset())
+    }
+  }, [user, navigate, isError, message, dispatch])
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
+  return (
+    <p>User Profile page</p>
+ 
+  )
 }
-  
-export default App;
-  
+
+export default ProfilePage

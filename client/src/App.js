@@ -17,6 +17,7 @@ import Create from "./pages/User/Create/Create";
 import Login from "./pages/User/Login/Login";
 import AccountCreated from "./pages/User/Create/Created"
 
+
 function App() {
   return ( 
     <>
@@ -26,11 +27,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} /> 
             <Route path="/user" element={<Profile />} />
-            <Route path="/recipes/:category" element={<Category />} />  
             <Route path="/recipes/new" element={<NewRecipe />} />
             <Route path="/user/register" element={<Create />} />
             <Route path="/user/created" element={<AccountCreated />} />
             <Route path="/user/login" element={<Login />} />
+            <Route path="/user/profile" element={<Profile />} />
+            <Route path="/recipes/:category" element={<Category />} />  
             <Route path="*" element ={<Error />} />      
           </Routes>
           <Footer /> 
