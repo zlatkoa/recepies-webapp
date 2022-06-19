@@ -1,4 +1,6 @@
-import { Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
 import "@fontsource/roboto"
 import "@fontsource/roboto-slab"; 
@@ -13,25 +15,29 @@ import Error from "./pages/Error/Error";
 import NewRecipe from "./pages/Recipes/New/New";
 import Create from "./pages/User/Create/Create";
 import Login from "./pages/User/Login/Login";
+import AccountCreated from "./pages/User/Create/Created"
 
 function App() {
   return ( 
-    <> 
-      <div className="appbody">  
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} /> 
-          <Route path="/user" element={<Profile />} />
-          <Route path="/recipes/:category" element={<Category />} />  
-          <Route path="/recipes/new" element={<NewRecipe />} />
-          <Route path="/user/register" element={<Create />} />
-          <Route path="/user/login" element={<Login />} />
-          <Route path="*" element ={<Error />} />      
-        </Routes>
-        <Footer /> 
-      </div>     
+    <>
+      <Router>
+        <div className="appbody">  
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} /> 
+            <Route path="/user" element={<Profile />} />
+            <Route path="/recipes/:category" element={<Category />} />  
+            <Route path="/recipes/new" element={<NewRecipe />} />
+            <Route path="/user/register" element={<Create />} />
+            <Route path="/user/created" element={<AccountCreated />} />
+            <Route path="/user/login" element={<Login />} />
+            <Route path="*" element ={<Error />} />      
+          </Routes>
+          <Footer /> 
+        </div>
+      </Router>
+      <ToastContainer />     
     </>
-
   );
 }
 

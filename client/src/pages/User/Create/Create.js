@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify'
+import { register, reset, logout } from '../../../features/auth/authSlice'
 import axios from 'axios';
 import SectionHeader from '../../../components/elements/Section/Section'
 import './Create.css';
-import { useNavigate } from "react-router-dom";
+import Spinner from '../../../components/elements/Spinner/Spinner'
 
 
-
-
-
-function App() {
+function Register() {
 
   const [formData, setFormData] = useState({
     first_name : '',
@@ -21,6 +22,28 @@ function App() {
 
   const { first_name, last_name, email, birthday, password, password2 } = formData
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
+  
+  useEffect(() => {
+    if(isError){
+      toast.error(message)
+    }
+    if(isSuccess || user) {
+      dispatch(logout())
+      dispatch(reset())
+      toast.success('Your account is created :)')
+      navigate('/user/login')
+    }
+
+    dispatch(reset())
+
+  },[user, isError, isSuccess, message, navigate, dispatch])
+
   const onChange = (e) => {
     setFormData((prevState)=>({
       ...prevState,
@@ -30,6 +53,23 @@ function App() {
 
   const onSubmit = (e) => {
     e.preventDefault()
+
+    if(password != password2){
+      toast.error('Passwords do not match, please check your password')
+    }else {
+      const userData = {
+        first_name, 
+        last_name, 
+        email, 
+        birthday, 
+        password
+      }
+      dispatch(register(userData))
+    }
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
 
@@ -134,7 +174,7 @@ function App() {
                     </div>
 
                     <div className='container-item'>
-                      <button type='submit' className='green-button' disabled>Creating...</button>   
+                      <button type='submit' className='green-button'>Create account</button>   
                     </div>
                   </div>
 
@@ -191,5 +231,5 @@ function App() {
   
 }
   
-export default App;
+export default Register;
   

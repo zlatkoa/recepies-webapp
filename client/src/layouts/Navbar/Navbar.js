@@ -1,32 +1,60 @@
 import './Navbar.css';
 import logo from '../../media/logo/logoheader.jpg'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import {logout, reset} from '../../features/auth/authSlice'
 
 function App() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {user} = useSelector((state)=>state.auth)
+
+  const onLogout =() => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
+
   return (
       <nav>
         <div className="navbarcontainer">
             <div className="navbaritem1">
-              <Link to="/"><img src={logo} /></Link> 
+              <a href="/"><img src={logo} /></a> 
             </div>
             <div className="navbaritem2">
-              <Link to="/recipes/breakfast"> Breakfast </Link> 
+              <a href="/recipes/breakfast"> Breakfast </a> 
               <div className="separator">&#9679;</div>
-              <Link to="/recipes/brunch">Brunch</Link> 
+              <a href="/recipes/brunch">Brunch</a> 
               <div className="separator">&#9679;</div>
-              <Link to="/recipes/lunch">Lunch</Link> 
+              <a href="/recipes/lunch">Lunch</a> 
               <div className="separator">&#9679;</div>
-              <Link to="/recipes/dinner">Dinner</Link> 
+              <a href="/recipes/dinner">Dinner</a> 
              </div>
-            <div className="navbaritem3">
-                <Link to="/user/login">
-                  <button className='outlined-button'>Log in</button>
-                </Link>
-                <span><p>or</p></span>
-                <Link to="/user/register">
-                  <button className='green-button'>Create acount</button>
-                </Link>
-            </div>
+            
+              {user ? (<>
+                <div className="navbaritem2">
+                  <a href="/recipes/breakfast"> Breakfast </a> 
+                  <div className="separator">&#9679;</div>
+                  <a href="/recipes/brunch">Brunch</a> 
+                  <div className="separator">&#9679;</div>
+                  <a href="" onClick={onLogout}>Logout</a> 
+                  </div>
+              </>
+                
+              ) : (<>
+                  <div className="navbaritem3">
+                    <a href="/user/login">
+                      <button className='outlined-button'>Log in</button>
+                    </a>
+                    <span><p>or</p></span>
+                    <a href="/user/register">
+                      <button className='green-button'>Create acount</button>
+                    </a>
+                  </div>
+                  </>) 
+              }
+                
+        
           </div>      
       </nav>
   );

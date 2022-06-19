@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SectionHeader from '../../../components/elements/Section/Section'
 import './Login.css';
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify'
+import { login, reset } from '../../../features/auth/authSlice'
+import Spinner from '../../../components/elements/Spinner/Spinner'
 
 
-function App() {
+function Login() {
 
   const [formData, setFormData] = useState({
     email : '',
@@ -14,6 +18,23 @@ function App() {
 
   const { email, password } = formData
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
+  useEffect(() => {
+    if(isError){
+      toast.error(message)
+    }
+    if(isSuccess || user) {
+      navigate('/')
+    }
+    dispatch(reset())
+  },[user, isError, isSuccess, message, navigate, dispatch])
+
+
   const onChange = (e) => {
     setFormData((prevState)=>({
       ...prevState,
@@ -21,8 +42,17 @@ function App() {
     }))
   }
 
+  if(isLoading) {
+    return <Spinner />
+  }
+
   const onSubmit = (e) => {
     e.preventDefault()
+    const userData = {
+        email,
+        password
+    }
+    dispatch(login(userData))
   }
     
     // const [email, setEmail] = useState ('');
@@ -102,7 +132,7 @@ function App() {
                             placeholder='Enter your password'
                             onChange={onChange}
                         />
-                        <button className='green-button' disabled>Logging...</button>   
+                        <button className='green-button'>Log in</button>   
                     </form>
                 </div>
             </div>
@@ -116,5 +146,5 @@ function App() {
   
 }
   
-export default App;
+export default Login;
   
