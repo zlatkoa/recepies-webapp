@@ -31,7 +31,9 @@ function ProfilePage() {
   }
 
   return (
-    <p>User Profile page</p>
+    <div className='container'>
+      
+    </div>
  
   )
 }

@@ -117,3 +117,20 @@ input[type="file"]{
   background-color: orange;
   color: white;
 }
+
+.card-category{
+  font: normal normal bold 14px/19px Roboto Slab;
+  background-color: #96BB36;
+  border: none;
+  color: white;
+  padding: 2px 11px 0px 11px;
+  text-align: left;
+  text-transform: lowercase;
+  text-decoration: none;
+  display: inline-block;
+  
+  cursor: pointer;
+  border-radius: 15px;
+  height: 26px; 
+  box-sizing: border-box;
+}

@@ -27,22 +27,9 @@
     height: 234px;
   }
   
-  .card-top .card-category{
-    font: normal normal bold 14px/19px Roboto Slab;
-    background-color: #96BB36;
-    border: none;
-    color: white;
-    padding: 2px 11px 0px 11px;
-    text-align: left;
-    text-transform: lowercase;
-    text-decoration: none;
-    display: inline-block;
-    margin: 17px 25px;
-    cursor: pointer;
-    border-radius: 15px;
-    height: 26px;
+  .card-top .card-category{  
     position: absolute;
-    box-sizing: border-box;
+    margin: 17px 25px;
   
   }
   
