@@ -14,7 +14,7 @@ function App() {
     dispatch(reset())
     navigate('/')
   }
-
+  
   return (
       <nav>
         <div className="navbarcontainer">
@@ -33,9 +33,9 @@ function App() {
             
               {user ? (<>
                 <div className="navbaritem2">
-                  <a href="/recipes/breakfast"> Breakfast </a> 
+                  <a href="/recipes/user"> My Recipes </a> 
                   <div className="separator">&#9679;</div>
-                  <a href="/recipes/brunch">Brunch</a> 
+                  <a href="/user/profile">My Profile</a> 
                   <div className="separator">&#9679;</div>
                   <a href="" onClick={onLogout}>Logout</a> 
                   </div>

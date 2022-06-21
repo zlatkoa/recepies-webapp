@@ -12,6 +12,7 @@ const initialState = {
     isLoading: false,
     message: ''
 }
+
 //Register user, create new user
 export const register = createAsyncThunk('auth/register', async (user, thunkApi)=>{
     try{
@@ -31,7 +32,6 @@ export const login = createAsyncThunk('auth/login', async (user, thunkApi)=>{
         return thunkApi.rejectWithValue(message)
     }
 })
-
 
 //Logout user
 export const logout = createAsyncThunk ('auth/logout',

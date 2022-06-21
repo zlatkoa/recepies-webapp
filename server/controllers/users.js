@@ -73,7 +73,7 @@ module.exports ={
             expiresIn: '5d'
           });
   
-          response(res, 200, 'You have logged in successfully', { token })
+          response(res, 200, 'You have logged in successfully', { token, payload })
         } else {
           response(res, 401, 'Invalid credentials');
         }

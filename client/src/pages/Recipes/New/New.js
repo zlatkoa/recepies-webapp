@@ -3,8 +3,7 @@ import axios from 'axios';
 import SectionHeader from '../../../components/elements/Section/Section'
 import './New.css';
 import { useNavigate } from "react-router-dom";
-
-
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
@@ -15,10 +14,19 @@ function App() {
     const [people, setPeople] = useState ('');
     const [description, setDescription] = useState ('');
     const [content, setContent] = useState ('');
-    const [creator, setCreator] = useState ('62a7b0b14ca10b60e3a7f10e');
+    const [creator, setCreator] = useState ('');
     const [picture, setPicture]= useState ('');
     const [isPending, setIsPending]=useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const {user} = useSelector((state)=>state.auth)
+
+    const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          'Content-Type': 'multipart/form-data'
+        },
+    }
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -34,14 +42,10 @@ function App() {
         formData.append('time',time);
         formData.append('people',people);
         formData.append('content',content);
-        formData.append('creator',creator);
+        formData.append('creator',user.payload.id);
 
         try{
-            const res = await axios.post('http://localhost:3000/recipes', formData, {
-                headers :{
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const res = await axios.post('http://localhost:3000/recipes', formData, config);
             setIsPending(false);
             //resetForm();
             navigate('/');

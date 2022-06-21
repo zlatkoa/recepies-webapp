@@ -88,24 +88,27 @@ module.exports ={
   getByUser:
   async(req, res) =>{  
     try{
-      const recipe = await Recipe.find( {creator : req.params.id});
+      const recipes = await Recipe.find( {creator : req.params.id});
 
-      if (recipe.length>0){
+      if (recipes.length>0){
         res.send({
           error: false,
           message: `All recipes from user #${req.params.id}`,
-          recipe: recipe
+          recipes: recipes
         })       
       } 
       else {          
-            response( res, 201,
-              `User #${req.params.id} has no recipes in the DB`
+            response( res, 201, 
+              `User #${req.params.id} has no recipes in the DB`,
+              {error:true, recipes:[]}
+              
             );
         }
     }
     catch(error){
       response( res, 500,
         `The fetch for the recipes failed the USer ID is wrong`
+        
       )
     }
   },
