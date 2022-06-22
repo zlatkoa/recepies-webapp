@@ -1,8 +1,7 @@
-
-.recipe-table{
-  width:100%;
+.recipe-table {
+  width: 100%;
   box-sizing: border-box;
-  border:white;
+  border: white;
   border-collapse: collapse;
   text-align: left;
   font: normal normal 16px/21px Roboto;
@@ -23,31 +22,34 @@
   padding-right: 40px;
 }
 
-.recipe-table-header{
-  font:bold;
+.recipe-table-header {
+  font: bold;
 }
 
-.recipe-table-row{
+.recipe-table-row {
   background-color: white;
   height: 61px;
   margin: 20px;
 }
-.spacer{
-  height:5px;
+
+.spacer {
+  height: 5px;
 }
 
-.table-column1, .table-column2{
+.table-column1,
+.table-column2 {
   width: auto;
 }
-.table-column1 p{
+
+.table-column1 p {
   font-weight: bold;
 }
 
-.table-column3{
+.table-column3 {
   width: 40%;
 }
 
-.table-column4, .table-column5{
+.table-column4,
+.table-column5 {
   width: 5%;
 }
-

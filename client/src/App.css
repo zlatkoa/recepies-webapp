@@ -1,24 +1,25 @@
-body{
+body {
   font-family: 'Roboto';
 }
+
 .appbody {
   background-color: #F8F7F2;
 }
 
-.errortxt{
-  color:black;
+.errortxt {
+  color: black;
 }
 
-.page-container{
+.page-container {
   width: 1247px;
   letter-spacing: 0px;
-  color: #FFFFFF; 
+  color: #FFFFFF;
   display: flex;
-  flex-direction:row;
-  flex-wrap:wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin: auto;  
+  margin: auto;
   padding-left: 15px;
   paddiing-right: 15px;
   font: normal normal normal 20px/26px Roboto Slab;
@@ -26,9 +27,9 @@ body{
   color: #A5A5A5;
 }
 
-.green-button{
-  width:auto;
-  height:44px;
+.green-button {
+  width: auto;
+  height: 44px;
   border: 0px solid #A5A5A5;
   background-color: #96BB36;
   border-radius: 5px;
@@ -41,13 +42,13 @@ body{
   padding-right: 35px;
 }
 
-.green-button:hover{
+.green-button:hover {
   background-color: orange;
 }
 
-.outlined-button{
-  width:auto;
-  height:44px;
+.outlined-button {
+  width: auto;
+  height: 44px;
   border: 1px solid #A5A5A5;
   background-color: inherit;
   border-radius: 5px;
@@ -63,13 +64,13 @@ body{
   color: orange;
 }
 
-.input-label{
+.input-label {
   font: normal normal bold 16px/21px Roboto Slab;
   letter-spacing: 0px;
   color: #F0972A;
 }
 
-.input-form{
+.input-form {
   width: 100%;
   height: 40px;
   border: 1px solid var(--midgrey);
@@ -82,43 +83,48 @@ body{
   letter-spacing: 0px;
   color: #A5A5A5;
   box-sizing: border-box;
-  padding-left:12px;
+  padding-left: 12px;
 }
+
 .header1 {
   text-align: left;
   font: normal normal bold 46px/60px Roboto Slab;
 }
-.orange-text{
+
+.orange-text {
   color: #F0972A;
 }
-.black-text{
+
+.black-text {
   color: #626262;
 }
-input[type="file"]{
-  display:none;
+
+input[type="file"] {
+  display: none;
 }
 
-.file-label{
-  width:234px;
-  height:32px;
+.file-label {
+  width: 234px;
+  height: 32px;
   border: 1px solid #A5A5A5;
   background-color: inherit;
   border-radius: 5px;
-  font: normal normal normal 14px/19px Roboto;;
+  font: normal normal normal 14px/19px Roboto;
+  ;
   color: #A5A5A5;
   text-transform: uppercase;
   padding-left: 67px;
   padding-right: 67px;
-  padding-top:6px;
-  padding-bottom:7px;
+  padding-top: 6px;
+  padding-bottom: 7px;
 }
 
-.file-label:hover{
+.file-label:hover {
   background-color: orange;
   color: white;
 }
 
-.card-category{
+.card-category {
   font: normal normal bold 14px/19px Roboto Slab;
   background-color: #96BB36;
   border: none;
@@ -128,9 +134,8 @@ input[type="file"]{
   text-transform: lowercase;
   text-decoration: none;
   display: inline-block;
-  
   cursor: pointer;
   border-radius: 15px;
-  height: 26px; 
+  height: 26px;
   box-sizing: border-box;
 }
