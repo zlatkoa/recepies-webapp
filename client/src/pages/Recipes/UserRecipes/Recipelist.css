@@ -46,10 +46,12 @@
 }
 
 .table-column3 {
-  width: 40%;
+  width: 30%;
+  text-align: center;
 }
 
 .table-column4,
 .table-column5 {
   width: 5%;
+  text-align: center;
 }

@@ -1,4 +1,5 @@
 import './Recipelist.css'
+import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Navigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -9,6 +10,7 @@ import Button from '../../../components/Button/Button'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../../../features/auth/authSlice'
+import { toast } from 'react-toastify';
 
 function UserRecipes() {
   const navigate = useNavigate()
@@ -42,6 +44,19 @@ function UserRecipes() {
     fetchRecipes();
   }, []);
 
+  const editRecipe =(recipe_id)=>{
+    
+  }
+
+  const deleteRecipe = async (recipe_id)=>{
+    await axios.delete('http://localhost:3000/recipes/' +recipe_id, config)
+    window.location.reload(false); 
+  }
+
+  const deleteItem = (recipe_id)=>{
+    setRecipes(recipes.filter((recipe) => recipe._id !== recipe_id));
+  };
+
 
 
 
@@ -55,47 +70,35 @@ function UserRecipes() {
     if (recipes.length > 0) {
       return (
         <>
-
-
           <div className='page-container'>
-            <SectionHeader title={"My Recipes"} />
-            <div className='button-round'><FaPlus /></div>
-            <Button action={() => { navigate('/') }} icon={'plus'} />
+            <SectionHeader title={"My Recipes"} button={<Button action={() => { navigate('/recipes/new') }} icon={'plus'} tooltip={'Click me to add new reicipe'} />} />
             <table className='recipe-table'>
               <thead className='orange-text recipe-table-header'>
                 <tr>
                   <th className='table-column1'>Recipe Name</th>
                   <th className='table-column2'>Category</th>
                   <th className='table-column3'>Created On</th>
+                  <th className='table-column1'>Likes</th>
                   <th className='table-column4'>Edit</th>
                   <th className='table-column5'>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className='recipe-table-row'>
-                  <td className='table-column1'><p>Homemade Pizza</p></td>
-                  <td className='table-column2'><div className='card-category'>Brunch</div></td>
-                  <td className='table-column3'>22.11.2020</td>
-                  <td className='table-column4'><FaEdit /></td>
-                  <td className='table-column5'><FaTrashAlt /></td>
+                {recipes.map((recipe)=> (
+                  <>
+                  <tr className='recipe-table-row' key={recipe._id}>
+                  <td className='table-column1'><p>{recipe.title}</p></td>
+                  <td className='table-column2'><div className='card-category'>{recipe.category}</div></td>
+                  <td className='table-column3'>{moment(recipe.createdAt).format('DD.MM.YYYY | HH:MM')}</td>
+                  <td className='table-column5'>{recipe.likes}</td>
+                  <td className='table-column4' onClick={()=>deleteItem(recipe._id)}><FaEdit className='button-hover' /></td>
+                  <td className='table-column5' onClick={()=>deleteRecipe(recipe._id)}><FaTrashAlt className='button-hover'/></td>
                 </tr>
-                <div className='spacer'></div>
-                <tr className='recipe-table-row'>
-                  <td className='table-column1'><p>Homemade Pizza</p></td>
-                  <td className='table-column2'><div className='card-category'>Brunch</div></td>
-                  <td className='table-column3'>22.11.2020</td>
-                  <td className='table-column4'><FaEdit /></td>
-                  <td className='table-column5'><FaTrashAlt /></td>
-                </tr>
-                <div className='spacer'></div>
-
-                <tr className='recipe-table-row'>
-                  <td className='table-column1'><p>Homemade Pizza</p></td>
-                  <td className='table-column2'><div className='card-category'>Brunch</div></td>
-                  <td className='table-column3'>22.11.2020</td>
-                  <td className='table-column4'><FaEdit /></td>
-                  <td className='table-column5'><FaTrashAlt /></td>
-                </tr>
+                <tr className='spacer'></tr>
+                  </>
+                ))}
+                
+                
               </tbody>
             </table>
           </div>
@@ -106,7 +109,8 @@ function UserRecipes() {
     } else {
       return (
         <div className='page-container'>
-          <SectionHeader title={"My Recipes"} />
+          <SectionHeader title={"My Recipes"} button={<Button action={() => { navigate('/recipes/new') }} icon={'plus'} tooltip={'Click me to add new reicipe'}/>}/>
+          
           <div className='container'>
             <p>You recipe book is empty. Please enter new recipe </p>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SectionHeader from '../../../components/elements/Section/Section'
+import Button from '../../../components/Button/Button';
 import './New.css';
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
@@ -48,7 +49,7 @@ function App() {
             const res = await axios.post('http://localhost:3000/recipes', formData, config);
             setIsPending(false);
             //resetForm();
-            navigate('/');
+            navigate('/recipes/user');
                         
         }catch(err){
             if(err.response.stauts===500){
@@ -75,7 +76,7 @@ function App() {
 
     return (
         <div className="page-container">
-            <SectionHeader title={'My Recipes'}/>
+            <SectionHeader title={'My Recipes'} button={<Button action={() => { navigate('/recipes/user') }} icon={'back'} tooltip={'Back to your recipe list'}/>}/>
             <div className="form-container">
                 <form onSubmit ={handleSubmit}>
                     <div className="form-left">

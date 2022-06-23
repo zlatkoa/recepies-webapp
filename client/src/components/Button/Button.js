@@ -4,23 +4,32 @@ import { useEffect, useState } from 'react';
 
 
 
-const Button = ({ action, icon }) => {
+const Button = ({ action, icon, tooltip }) => {
 
   const [symbol, setSymbol] = useState(null);
 
   useEffect(() => {
-
-    setSymbol(icon);
+    const symbol = () =>{ 
+      switch (icon) {
+        case 'plus': return <FaPlus/>; break;
+        case 'back': return <FaArrowLeft />; break;
+        default : return <></>;
+      }
+    }
+    
+    setSymbol(symbol);
   }, []);
 
-  console.log(symbol);
   return (
+    <>
+    <div class="tooltip">
+    <span class="tooltiptext">{tooltip}</span>
+  
     <div className='button-round' onClick={action}>
-      {symbol}
-
-
-      {/* {icon == "back" ? <FaArrowLeft /> : <FaPlus />} */}
+      {symbol}      
     </div>
+    </div>
+    </>
   );
 };
 export default Button;

@@ -1,4 +1,5 @@
 import './Section.css';
+import Button from '../../../components/Button/Button'
 const Header = ({ title, button }) => {
 
     return (
