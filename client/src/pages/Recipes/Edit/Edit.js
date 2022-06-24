@@ -1,18 +1,16 @@
-import React, { useState, useEffect} from 'react';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import SectionHeader from '../../../components/elements/Section/Section'
 import Button from '../../../components/Button/Button';
 import './Edit.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-const settings = require ('../../../settings/settings.json');
-
-
-
+const settings = require('../../../settings/settings.json');
 
 function EditRecipe() {
-    const location = useLocation();     
-    const {recipe} = location.state
+
+    const location = useLocation();
+    const { recipe } = location.state
     const [title, setTitle] = useState(recipe.title);
     const [category, setCategory] = useState(recipe.category);
     const [time, setTime] = useState(recipe.time);
@@ -20,8 +18,8 @@ function EditRecipe() {
     const [description, setDescription] = useState(recipe.description);
     const [content, setContent] = useState(recipe.content);
     const [creator, setCreator] = useState(recipe.creator);
-    const [picture, setPicture] = useState(settings.url+recipe.picture);
-    const [previewPic, setPreviewPic]=useState(true);
+    const [picture, setPicture] = useState(settings.url + recipe.picture);
+    const [previewPic, setPreviewPic] = useState(true);
     const [isPending, setIsPending] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -37,27 +35,21 @@ function EditRecipe() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsPending(true);
+
         const formData = new FormData();
-
-     
-        
-
         formData.append('picture', picture);
-        formData.append('title', title);
+        formData.append('title', 'title');
         formData.append('description', description);
         formData.append('category', category);
         formData.append('time', time);
         formData.append('people', people);
         formData.append('content', content);
         formData.append('creator', user.payload.id);
-       
-        console.log(user.token);
-        console.log('---------------');
-        console.log(recipe._id)
-    
+
         try {
-            
-            const res = await axios.patch('http://localhost:3000/recipes/'+recipe._id, formData, config);
+            const res = await axios.patch('http://localhost:3000/recipes/' + recipe._id, formData, config);
+            console.log(formData);
+            console.log(res.data.recipe);
             setIsPending(false);
             //resetForm();
             navigate('/recipes/user');
@@ -70,9 +62,7 @@ function EditRecipe() {
                 setIsPending(false);
                 console.log(err.response.data);
             }
-
         }
-
     }
 
     const resetForm = () => {
@@ -93,8 +83,7 @@ function EditRecipe() {
                     <div className="form-left">
                         <label className='input-label'>Recipe Image</label>
                         <div className="recipe-image">
-                        {picture && <img src= {previewPic ? picture : URL.createObjectURL(picture)}></img>} 
-                            
+                            {picture && <img src={previewPic ? picture : URL.createObjectURL(picture)}></img>}
                         </div>
 
                         <label className='file-label' htmlFor='file' >Upload Image </label>
@@ -104,8 +93,8 @@ function EditRecipe() {
                             className='input-file'
                             type="file"
                             accept="image/*"
-                            
-                            onChange={(e) => {setPicture(e.target.files[0]);  setPreviewPic(false)}}
+
+                            onChange={(e) => { setPicture(e.target.files[0]); setPreviewPic(false) }}
                         />
                     </div>
                     <div className="form-middle">
@@ -113,7 +102,6 @@ function EditRecipe() {
                         <input
                             className='input-form'
                             type="text"
-                            
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
@@ -156,7 +144,7 @@ function EditRecipe() {
                             className='input-form text-area1'
                             rows="5"
                             cols="50"
-                            
+
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
@@ -170,7 +158,7 @@ function EditRecipe() {
                             className='input-form text-area'
                             rows="35"
                             cols="50"
-                            
+
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                         />
