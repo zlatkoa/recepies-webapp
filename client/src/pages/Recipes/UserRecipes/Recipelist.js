@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Navigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../../../components/elements/Spinner/Spinner';
-import SectionHeader from '../../../components/elements/Section/Section'
+import SectionHeader from '../../../components/elements/Section/Section';
+import EditRecipe from '../Edit/Edit';
 import { FaTrashAlt, FaEdit, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import Button from '../../../components/Button/Button'
 
@@ -36,7 +37,6 @@ function UserRecipes() {
       const resRecipes = await axios.get('http://localhost:3000/recipes/user/' + user.payload.id, config);
       const dataRecipes = await resRecipes.data.recipes;
       setRecipes(dataRecipes);
-      console.log(dataRecipes)
       setIsDataFetched(true);
       setLoading(false);
     }
@@ -44,17 +44,15 @@ function UserRecipes() {
     fetchRecipes();
   }, []);
 
-  const editRecipe =(recipe_id)=>{
-    
-  }
 
   const deleteRecipe = async (recipe_id)=>{
     await axios.delete('http://localhost:3000/recipes/' +recipe_id, config)
     window.location.reload(false); 
   }
 
-  const deleteItem = (recipe_id)=>{
-    setRecipes(recipes.filter((recipe) => recipe._id !== recipe_id));
+  const editRecipe = (recipe)=>{
+    navigate('/recipes/edit', {state:{recipe}})
+   
   };
 
 
@@ -91,7 +89,7 @@ function UserRecipes() {
                   <td className='table-column2'><div className='card-category'>{recipe.category}</div></td>
                   <td className='table-column3'>{moment(recipe.createdAt).format('DD.MM.YYYY | HH:MM')}</td>
                   <td className='table-column5'>{recipe.likes}</td>
-                  <td className='table-column4' onClick={()=>deleteItem(recipe._id)}><FaEdit className='button-hover' /></td>
+                  <td className='table-column4' onClick={()=>editRecipe(recipe)}><FaEdit className='button-hover' /></td>
                   <td className='table-column5' onClick={()=>deleteRecipe(recipe._id)}><FaTrashAlt className='button-hover'/></td>
                 </tr>
                 <tr className='spacer'></tr>

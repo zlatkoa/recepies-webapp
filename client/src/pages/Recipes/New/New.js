@@ -85,7 +85,7 @@ function App() {
                             {picture && <img src={URL.createObjectURL(picture)}></img>}
                         </div>
                         
-                        <label className='file-label' for="file">Upload Image </label>
+                        <label className='file-label' htmlFor='file'>Upload Image </label>
                         
                         <input
                             id="file"
@@ -100,8 +100,7 @@ function App() {
                         <label className='input-label'>Recipe Title</label>
                         <input
                             className='input-form'
-                            type="text"
-                        
+                            type="text"                        
                             required
                             value ={title}
                             onChange={(e)=> setTitle(e.target.value)}
