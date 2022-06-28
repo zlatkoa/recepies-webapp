@@ -38,7 +38,7 @@ function EditRecipe() {
 
         const formData = new FormData();
         formData.append('picture', picture);
-        formData.append('title', 'title');
+        formData.append('title', title);
         formData.append('description', description);
         formData.append('category', category);
         formData.append('time', time);
@@ -46,9 +46,15 @@ function EditRecipe() {
         formData.append('content', content);
         formData.append('creator', user.payload.id);
 
+        sendData(formData)
+    }
+    const sendData = async (formData) => {
+        console.log(user.token);
+        console.log(user.payload.id)
+
         try {
             const res = await axios.patch('http://localhost:3000/recipes/' + recipe._id, formData, config);
-            console.log(formData);
+            console.log(...formData);
             console.log(res.data.recipe);
             setIsPending(false);
             //resetForm();

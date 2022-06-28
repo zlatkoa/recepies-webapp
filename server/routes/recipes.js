@@ -9,9 +9,9 @@ require('dotenv').config();
 
 router.use(jwt({
       secret: process.env.JWT_SECRET_KEY,
-      algorithms: ['HS256'] 
+      algorithms: ['HS256']
 }).unless({
-      path: [           
+      path: [
             {
                   url: /^\/recipes\/category\/.*/, methods: ['GET']
             },
@@ -31,7 +31,7 @@ router.use(jwt({
 router.use((err, req, res, next) => {
       console.log(err.name);
       if (err.name === 'UnauthorizedError') {
-            response(res, 401, 'Unauthorized access');         
+            response(res, 401, 'Unauthorized access');
       }
 })
 
@@ -44,7 +44,9 @@ router.get('/', controller.getAll)
       .get('/popular', controller.getMostPopular)
       .get('/:id', controller.getOne)
       .post('/', upload.single('picture'), controller.create)
-      .patch('/:id', controller.patch)
+      .patch('/:id', upload.single('picture'), controller.patch)
       .delete('/:id', controller.delete)
 
 module.exports = router;
+
+//https://www.tutorialspoint.com/expressjs/expressjs_form_data.htm

@@ -4,157 +4,159 @@ const User = require('../models/user');
 const response = require('../lib/response_handler');
 
 
-module.exports ={
+module.exports = {
   getAll:
-  async (req, res) => {
-    const recipes = await Recipe.find().populate ('creator');
-    res.send({
-      error: false,
-      message: 'All recepies from the database',
-      recipes: recipes
-    });
-  },
-  
+    async (req, res) => {
+      const recipes = await Recipe.find().populate('creator');
+      res.send({
+        error: false,
+        message: 'All recepies from the database',
+        recipes: recipes
+      });
+    },
+
   getOne:
-  async (req, res) =>{
-    const recipe = await Recipe.findById(req.params.id);
-    res.send({
-      error:false,
-      message: `Recipe with id #${recipe._id}`,
-      recipe : recipe
-    });
-  },
+    async (req, res) => {
+      const recipe = await Recipe.findById(req.params.id);
+      res.send({
+        error: false,
+        message: `Recipe with id #${recipe._id}`,
+        recipe: recipe
+      });
+    },
 
   getLatest:
-  async (req, res) => {
-    const recipes = await Recipe.find().sort({$natural:-1}).limit(12);
-    res.send({
-      error: false,
-      message: 'Latest 3 recipes from the database',
-      recipes: recipes
-    });
-  },
+    async (req, res) => {
+      const recipes = await Recipe.find().sort({ $natural: -1 }).limit(12);
+      res.send({
+        error: false,
+        message: 'Latest 3 recipes from the database',
+        recipes: recipes
+      });
+    },
 
   create:
-  async (req, res) => {
-    try{
-      // console.log(file);
-      // const filetype = req.file.mimetype.split('/')[0];
-      // if(filetype=='image'){
+    async (req, res) => {
+      try {
+        // console.log(file);
+        // const filetype = req.file.mimetype.split('/')[0];
+        // if(filetype=='image'){
         req.body.likes = 0;
-        req.body.category=req.body.category.toLowerCase();
+        req.body.category = req.body.category.toLowerCase();
         req.body.picture = `images/${req.file.filename}`
         const recipe = await Recipe.create(req.body);
         res.send({
           error: false,
           message: 'New recipe has been created',
           recipe: recipe
-        });      
-      // }else{
-      //   res.send({
-      //     error: true,
-      //     message: 'Please upload a picture file'
-      //   });
-      // }
-      
-    }
-    catch(error){
-      response( res, 500,
-        `Creation of new recepie failed`
-      )
-    }
-  },
+        });
+        // }else{
+        //   res.send({
+        //     error: true,
+        //     message: 'Please upload a picture file'
+        //   });
+        // }
+
+      }
+      catch (error) {
+        response(res, 500,
+          `Creation of new recepie failed`
+        )
+      }
+    },
 
   patch:
-  async (req, res) => {
-    await Recipe.findByIdAndUpdate(req.params.id, req.body);
-    const recipe = await Recipe.findById(req.params.id);
-    res.send({
-      error: false,
-      message: `Recipe with id #${recipe._id} has been updated`,
-      recipe: recipe
-    });
-  },
+    async (req, res) => {
+      await Recipe.findByIdAndUpdate(req.params.id, req.body);
+      const recipe = await Recipe.findById(req.params.id);
+      console.log(req.params.id)
+      console.log(req.body)
+      res.send({
+        error: false,
+        message: `Recipe with id #${recipe._id} has been updated`,
+        recipe: recipe
+      });
+    },
 
   delete:
-  async (req, res) => {
-    await Recipe.findByIdAndDelete(req.params.id);
-    res.send({
-      error: false,
-      message: `Recipe with id #${req.params.id} has been deleted`
-    });
-  },
+    async (req, res) => {
+      await Recipe.findByIdAndDelete(req.params.id);
+      res.send({
+        error: false,
+        message: `Recipe with id #${req.params.id} has been deleted`
+      });
+    },
 
   getByUser:
-  async(req, res) =>{  
-    try{
-      const recipes = await Recipe.find( {creator : req.params.id});
+    async (req, res) => {
+      try {
+        const recipes = await Recipe.find({ creator: req.params.id });
 
-      if (recipes.length>0){
-        res.send({
-          error: false,
-          message: `All recipes from user #${req.params.id}`,
-          recipes: recipes
-        })       
-      } 
-      else {          
-            response( res, 201, 
-              `User #${req.params.id} has no recipes in the DB`,
-              {error:true, recipes:[]}
-              
-            );
+        if (recipes.length > 0) {
+          res.send({
+            error: false,
+            message: `All recipes from user #${req.params.id}`,
+            recipes: recipes
+          })
         }
-    }
-    catch(error){
-      response( res, 500,
-        `The fetch for the recipes failed the USer ID is wrong`
-        
-      )
-    }
-  },
+        else {
+          response(res, 201,
+            `User #${req.params.id} has no recipes in the DB`,
+            { error: true, recipes: [] }
+
+          );
+        }
+      }
+      catch (error) {
+        response(res, 500,
+          `The fetch for the recipes failed the USer ID is wrong`
+
+        )
+      }
+    },
   getByCategory:
-    async (req, res) =>{
-      try{
+    async (req, res) => {
+      try {
         const category = req.params.category.toLowerCase();
-        const recipes = await Recipe.find({ category: category } );
-        if (recipes.length>0){
+        const recipes = await Recipe.find({ category: category });
+        if (recipes.length > 0) {
           res.send({
             error: false,
             message: `Recipes for the category ${req.params.category}`,
             recipes: recipes
           })
-        }else{
+        } else {
           res.send({
-            error:true,
+            error: true,
             message: `There are no recepies from category #${req.params.category} `,
-            recipes : recipes
+            recipes: recipes
           });
         }
       }
-      catch(error){
-        response( res, 500,
+      catch (error) {
+        response(res, 500,
           `The fetch for the recipes by category ${req.params.category}  failed`
         )
-    }
-  },
+      }
+    },
   getMostPopular:
-    async (req, res) =>{
-      try{        
+    async (req, res) => {
+      try {
         const recipes = await Recipe.aggregate(
           [
-            { $sort : { likes : -1 } }
+            { $sort: { likes: -1 } }
           ]
-       ).limit(6);
+        ).limit(6);
         res.send({
-          error:false,
+          error: false,
           message: `Most popular ${recipes.length} recipes`,
-          recipes : recipes
+          recipes: recipes
         });
       }
-      catch(error){
-        response( res, 500,
+      catch (error) {
+        response(res, 500,
           `The fetch for the recipes by popularity failed`
         )
+      }
     }
-  }
 }
