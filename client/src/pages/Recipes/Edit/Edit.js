@@ -49,15 +49,9 @@ function EditRecipe() {
         sendData(formData)
     }
     const sendData = async (formData) => {
-        console.log(user.token);
-        console.log(user.payload.id)
-
         try {
             const res = await axios.patch('http://localhost:3000/recipes/' + recipe._id, formData, config);
-            console.log(...formData);
-            console.log(res.data.recipe);
             setIsPending(false);
-            //resetForm();
             navigate('/recipes/user');
 
         } catch (err) {
@@ -70,16 +64,6 @@ function EditRecipe() {
             }
         }
     }
-
-    const resetForm = () => {
-        setTitle('');
-        setCategory('breakfast');
-        setTime('');
-        setPeople('');
-        setDescription('');
-        setContent('');
-        setPicture('');
-    };
 
     return (
         <div className="page-container">

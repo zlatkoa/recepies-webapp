@@ -32,7 +32,7 @@ function ProfilePage() {
 
   return (
     <div className='container'>
-      
+      <p>Test</p>
     </div>
  
   )

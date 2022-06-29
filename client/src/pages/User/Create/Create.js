@@ -68,167 +68,117 @@ function Register() {
     }
   }
 
-  if (isLoading) {
-    return <Spinner />
-  }
+  if (isLoading) {return <Spinner />}
+  
+  return (
+    <>
+    <div className='page-container'>
+      <SectionHeader title={'Create Account'}/>   
+        <div className='content-container'>               
+          <div className='container-left-create'>                    
+            <h1 className='header1'>
+              <p className='orange-text'>Create your</p><p className='black-text'> account</p>
+            </h1>
+            <p>
+              Create account so you can share your delicious ideas with the world.
+              Your account is also your virtual notebook with cooking recipes 
+              that you can keep and share with your friends forever. 
+            </p>
+          </div>              
+          <div className='container-right-create'>
+            <form onSubmit ={onSubmit}>
+              <div className='container-form'>               
+                <div className='container-form-left'>
+                  <div className='container-item'> 
+                  </div>
+                  <div className='container-item'>              
+                    <label className='input-label'>First Name</label>
+                    <input
+                        className='input-form'
+                        type="text"
+                        required
+                        name='first_name'
+                        placeholder='Enter your first name'
+                        value ={first_name}
+                        onChange={onChange}
+                    />                
+                  </div>
+                  
+                  <div className='container-item'>
+                    <label className='input-label'>Email</label>
+                      <input
+                        className='input-form'
+                        type="email"
+                        required
+                        name='email'
+                        placeholder='Enter your email'
+                        value ={email}
+                        onChange={onChange}
+                    />
+                  </div>
+                  <div className='container-item'>
+                    <label className='input-label'>Password</label>
+                      <input
+                        className='input-form'
+                        type="password"
+                        required
+                        value ={password}
+                        name='password'
+                        placeholder='Enter your password'
+                        onChange={onChange}
+                    />
+                  </div>
 
+                  <div className='container-item'>
+                    <button type='submit' className='green-button'>Create account</button>   
+                  </div>
+                </div>
 
-    // const [first_name, setFirst_name] = useState ('');
-    // const [last_name, setLast_name] = useState ('');
-    // const [email, setEmail] = useState ('');
-    // const [birthday, setBirthday] = useState ('');
-    // const [password, setPassword] = useState ('');
-    // const [repeatPassword, setRepeatPassword] = useState ('');
-    // const [isPending, setIsPending]=useState(false);
-    // const [showMessage, setShowMessage]=useState(false);
-    // const [message, setMessage]=useState('');
-    // const navigate = useNavigate();
-
-    // const handleSubmit = async (e)=>{
-    //     e.preventDefault();
-    //     setIsPending(true);
-
-    //     const payload = { first_name, last_name, email, birthday, password}       
-
-    //     try{
-    //         const res = await axios.post('http://localhost:3000/users', payload, {
-    //             headers :{
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         });
-    //         setIsPending(false);
-    //         setMessage('Your account is created. Please go to the login page');
-    //         setShowMessage(true);
-    //         //navigate('/');
-                        
-    //     }catch(err){
-    //         if(err.response.stauts===500){
-    //             setIsPending(false);
-    //             console.log('Problem with the server');
-    //         }else{
-    //             setIsPending(false);
-    //             console.log(err.response.data);
-    //         }
-
-    //     }
- 
-    // }
-
-    return (
-      <>
-      <div className='page-container'>
-        <SectionHeader title={'Create Account'}/>   
-          <div className='content-container'>               
-            <div className='container-left-create'>                    
-              <h1 className='header1'>
-                <p className='orange-text'>Create your</p><p className='black-text'> account</p>
-              </h1>
-              <p>
-                Create account so you can share your delicious ideas with the world.
-                Your account is also your virtual notebook with cooking recipes 
-                that you can keep and share with your friends forever. 
-              </p>
-            </div>              
-            <div className='container-right-create'>
-              <form onSubmit ={onSubmit}>
-                <div className='container-form'>               
-                  <div className='container-form-left'>
-                    <div className='container-item'> 
-                    </div>
-                    <div className='container-item'>              
-                      <label className='input-label'>First Name</label>
+                <div className='container-form-right'>
+                  <div className='container-item'>  
+                      <label className='input-label'>Second Name</label>
                       <input
                           className='input-form'
                           type="text"
                           required
-                          name='first_name'
-                          placeholder='Enter your first name'
-                          value ={first_name}
-                          onChange={onChange}
-                      />                
-                    </div>
-                    
-                    <div className='container-item'>
-                      <label className='input-label'>Email</label>
-                        <input
-                          className='input-form'
-                          type="email"
-                          required
-                          name='email'
-                          placeholder='Enter your email'
-                          value ={email}
+                          value ={last_name}
+                          name='last_name'
+                          placeholder='Enter your last name'
                           onChange={onChange}
                       />
                     </div>
                     <div className='container-item'>
-                      <label className='input-label'>Password</label>
+                      <label className='input-label'>birthday</label>
+                        <input
+                          className='input-form'
+                          type="date"
+                          required
+                          value ={birthday}
+                          name='birthday'
+                          placeholder='Enter your birth date'
+                          onChange={onChange}
+                      />
+                    </div>                    
+                    <div className='container-item'>
+                      <label className='input-label'>Repeat password</label>
                         <input
                           className='input-form'
                           type="password"
                           required
-                          value ={password}
-                          name='password'
-                          placeholder='Enter your password'
+                          value ={password2}
+                          name='password2'
+                          placeholder='Confirm your password'
                           onChange={onChange}
-                      />
+                      />           
                     </div>
-
-                    <div className='container-item'>
-                      <button type='submit' className='green-button'>Create account</button>   
-                    </div>
-                  </div>
-
-                  <div className='container-form-right'>
-                    <div className='container-item'>  
-                        <label className='input-label'>Second Name</label>
-                        <input
-                            className='input-form'
-                            type="text"
-                            required
-                            value ={last_name}
-                            name='last_name'
-                            placeholder='Enter your last name'
-                            onChange={onChange}
-                        />
-                      </div>
-                      <div className='container-item'>
-                        <label className='input-label'>birthday</label>
-                          <input
-                            className='input-form'
-                            type="date"
-                            required
-                            value ={birthday}
-                            name='birthday'
-                            placeholder='Enter your birth date'
-                            onChange={onChange}
-                        />
-                      </div>                    
-                      <div className='container-item'>
-                        <label className='input-label'>Repeat password</label>
-                          <input
-                            className='input-form'
-                            type="password"
-                            required
-                            value ={password2}
-                            name='password2'
-                            placeholder='Confirm your password'
-                            onChange={onChange}
-                        />           
-                      </div>
-                  </div>
-                </div>               
-              </form>
-            </div>
+                </div>
+              </div>               
+            </form>
           </div>
-      </div>
-        
-      </>
-
-     
-
-        
-    );
-  
+        </div>
+    </div>        
+    </> 
+  );  
 }
   
 export default Register;
