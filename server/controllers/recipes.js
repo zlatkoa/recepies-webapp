@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Recipe = require('../models/recipe');
 const User = require('../models/user');
 const response = require('../lib/response_handler');
+const fs = require('fs');
 
 
 module.exports = {
@@ -38,9 +39,6 @@ module.exports = {
   create:
     async (req, res) => {
       try {
-        // console.log(file);
-        // const filetype = req.file.mimetype.split('/')[0];
-        // if(filetype=='image'){
         req.body.likes = 0;
         req.body.category = req.body.category.toLowerCase();
         req.body.picture = `images/${req.file.filename}`
@@ -50,12 +48,6 @@ module.exports = {
           message: 'New recipe has been created',
           recipe: recipe
         });
-        // }else{
-        //   res.send({
-        //     error: true,
-        //     message: 'Please upload a picture file'
-        //   });
-        // }
 
       }
       catch (error) {
@@ -67,9 +59,20 @@ module.exports = {
 
   patch:
     async (req, res) => {
+      const oldRecipe = await Recipe.findById(req.params.id);
+      if (req.file) {
+        fs.unlink('public/' + oldRecipe.picture, (err) => {
+          if (err) {
+            console.log(err)
+          }
+        })
+        req.body.picture = `images/${req.file.filename}`
+      } else {
+        req.body.picture = oldRecipe.picture;
+      }
       await Recipe.findByIdAndUpdate(req.params.id, req.body);
       const recipe = await Recipe.findById(req.params.id);
-      console.log(req.params.id)
+      console.log('Nov Recept')
       console.log(req.body)
       res.send({
         error: false,
