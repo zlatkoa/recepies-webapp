@@ -72,7 +72,6 @@ module.exports = {
       }
       await Recipe.findByIdAndUpdate(req.params.id, req.body);
       const recipe = await Recipe.findById(req.params.id);
-      console.log('Nov Recept')
       console.log(req.body)
       res.send({
         error: false,
@@ -83,6 +82,12 @@ module.exports = {
 
   delete:
     async (req, res) => {
+      const oldRecipe = await Recipe.findById(req.params.id);
+      fs.unlink('public/' + oldRecipe.picture, (err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
       await Recipe.findByIdAndDelete(req.params.id);
       res.send({
         error: false,
