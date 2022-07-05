@@ -17,11 +17,15 @@ const userSchema = mongoose.Schema({
     type: Date,
     required: true
   },
+  picture: {
+    type: String,
+    required: true
+  },
   password: {
     type: String,
     required: true
   }
-  
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('user', userSchema);

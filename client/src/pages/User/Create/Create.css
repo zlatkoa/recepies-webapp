@@ -1,18 +1,19 @@
-.content-container{
-  display:flex;
+.content-container {
+  display: flex;
   margin-bottom: 202px;
 }
 
-.container-left-create{
-  width:55%;
+.container-left-create {
+  width: 55%;
   box-sizing: border-box;
-  margin-top:43px;
-  margin-right:114px;
+  margin-top: 43px;
+  margin-right: 114px;
 }
-.container-right-create{
-  width:100%;
+
+.container-right-create {
+  width: 100%;
   box-sizing: border-box;
-  margin-top:43px;
+  margin-top: 43px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -20,8 +21,8 @@
 }
 
 
-.input-form{
-  margin-bottom:30px;
+.input-form {
+  margin-bottom: 30px;
   margin-top: 10px;
 
 }
@@ -34,20 +35,30 @@
   display: inline;
 }
 
-.container-form{
-  display:flex;
+.container-form {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding-right:50px;
+  padding-right: 50px;
 }
-.container-form-left{
+
+.container-form-left {
   box-sizing: border-box;
   width: 50%;
-  padding-right:33px;
+  padding-right: 33px;
 }
-.container-form-right{
+
+.container-form-right {
   box-sizing: border-box;
   width: 50%;
-  padding-right:33px;
+  padding-right: 33px;
+}
+
+.profile-picture {
+  width: 123px;
+  height: 123px;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 100%;
+
 }

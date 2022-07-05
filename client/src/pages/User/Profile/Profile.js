@@ -13,22 +13,18 @@ import moment from 'moment';
 function UserProfile() {
   const [loading, setLoading] = useState(false);
   const [isDataFetched, setIsDataFetched] = useState(false);
-  const [profileFirstName, setProfileFirstName] = useState('');
-  const [profileSecondName, setProfileSecondName] = useState('');
-  const [profileEmail, setProfileEmail] = useState('');
-  const [profileBirthday, setProfileBirthday] = useState('');
-
 
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     email: '',
     birthday: '',
+    picture: '',
     password: '',
     password2: ''
   })
 
-  const { first_name, last_name, email, birthday, password, password2 } = formData
+  const { first_name, last_name, email, birthday, password, picture, password2 } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -52,17 +48,18 @@ function UserProfile() {
     const getUser = async () => {
       setLoading(true);
       const res = await axios.get('http://localhost:3000/users/' + user.payload.id, config);
-      setProfileFirstName(res.data.user.first_name)
-      setProfileSecondName(res.data.user.last_name)
-      setProfileEmail(res.data.user.email)
-      setProfileBirthday(res.data.user.birthday)
+      setFormData(prev => ({ ...prev, first_name: res.data.user.first_name }))
+      setFormData(prev => ({ ...prev, last_name: res.data.user.last_name }))
+      setFormData(prev => ({ ...prev, email: res.data.user.email }))
+      setFormData(prev => ({ ...prev, birthday: res.data.user.birthday }))
+      setFormData(prev => ({ ...prev, picture: res.data.user.picture }))
+      setFormData(prev => ({ ...prev, password: '' }))
+      setFormData(prev => ({ ...prev, password2: '' }))
       setIsDataFetched(true);
       setLoading(false);
     }
     getUser();
   }, []);
-
-
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -77,26 +74,39 @@ function UserProfile() {
     if (password != password2) {
       toast.error('Passwords do not match, please check your password')
     } else {
-      const userData = {
-        first_name,
-        last_name,
-        email,
-        birthday,
-        password
+      editUser(formData);
+    }
+  }
+
+  const editUser = async (formData) => {
+    try {
+      const res = await axios.patch('http://localhost:3000/users/' + user.payload.id, formData, config);
+      setLoading(true);
+      dispatch(logout());
+
+    } catch (err) {
+      if (err.response.stauts === 500) {
+        setLoading(false);
+        console.log('Problem with the server');
+      } else {
+        setLoading(false);
+        console.log(err.response.data);
       }
-      dispatch(register(userData))
     }
   }
 
 
-  if (isLoading) { return <Spinner /> }
+
+  if (loading) { return <Spinner /> }
   return (
     <>
       <div className='page-container'>
         <SectionHeader title={'My Profile'} />
         <div className='content-container'>
           <div className='container-left-create'>
-            Profile Picture
+            <img className="profile-picture" src={'http://localhost:3000/' + picture}></img>
+            <button className='outlined-button'>CHANGE AVATAR</button>
+
           </div>
           <div className='container-right-create'>
             <form onSubmit={onSubmit}>
@@ -112,7 +122,7 @@ function UserProfile() {
                       required
                       name='first_name'
                       placeholder='Enter your first name'
-                      value={profileFirstName}
+                      value={first_name}
                       onChange={onChange}
                     />
                   </div>
@@ -125,7 +135,7 @@ function UserProfile() {
                       required
                       name='email'
                       placeholder='Enter your email'
-                      value={profileEmail}
+                      value={email}
                       onChange={onChange}
                     />
                   </div>
@@ -135,7 +145,7 @@ function UserProfile() {
                       className='input-form'
                       type="password"
                       required
-                      value={''}
+                      value={password}
                       name='password'
                       placeholder='Enter your password'
                       onChange={onChange}
@@ -154,7 +164,7 @@ function UserProfile() {
                       className='input-form'
                       type="text"
                       required
-                      value={profileSecondName}
+                      value={last_name}
                       name='last_name'
                       placeholder='Enter your last name'
                       onChange={onChange}
@@ -166,7 +176,7 @@ function UserProfile() {
                       className='input-form'
                       type="date"
                       required
-                      value={moment(profileBirthday).format('yyyy-MM-DD')}
+                      value={moment(birthday).format('yyyy-MM-DD')}
                       name='birthday'
                       placeholder='Enter your birth date'
                       onChange={onChange}
@@ -178,7 +188,7 @@ function UserProfile() {
                       className='input-form'
                       type="password"
                       required
-                      value={''}
+                      value={password2}
                       name='password2'
                       placeholder='Confirm your password'
                       onChange={onChange}
