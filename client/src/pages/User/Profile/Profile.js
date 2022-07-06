@@ -6,13 +6,16 @@ import { register, reset, logout } from '../../../features/auth/authSlice'
 import axios from 'axios';
 import SectionHeader from '../../../components/elements/Section/Section'
 import '../Create/Create.css';
+import './Profile.css';
 import Spinner from '../../../components/elements/Spinner/Spinner'
 import moment from 'moment';
+const settings = require('../../../settings/settings.json');
 
 
 function UserProfile() {
   const [loading, setLoading] = useState(false);
   const [isDataFetched, setIsDataFetched] = useState(false);
+  const [previewPic, setPreviewPic] = useState(true);
 
   const [formData, setFormData] = useState({
     first_name: '',
@@ -100,18 +103,25 @@ function UserProfile() {
   if (loading) { return <Spinner /> }
   return (
     <>
-      <div className='page-container'>
-        <SectionHeader title={'My Profile'} />
-        <div className='content-container'>
-          <div className='container-left-create'>
-            <img className="profile-picture" src={'http://localhost:3000/' + picture}></img>
-            <button className='outlined-button'>CHANGE AVATAR</button>
-
+    <div className='page-container'>
+    <SectionHeader title={'My Profile'} />
+    <div className='content-container'>
+      <form onSubmit={onSubmit}>
+        <div className='container-form-profile'>
+          <div className="container-form-profile-033">                        
+            {settings.url+picture && <img className="profile-picture" src={previewPic ? settings.url+picture : URL.createObjectURL(picture)}></img>}
+              <label className='file-label-profile' htmlFor='file' >CHANGE AVATAR</label>
+              <input
+                id="file"
+                className='input-file'
+                type="file"
+                accept="image/*"
+                onChange={(e) => { setFormData(prev => ({ ...prev, picture: (e.target.files[0]) })); setPreviewPic(false) }}
+              />
           </div>
-          <div className='container-right-create'>
-            <form onSubmit={onSubmit}>
-              <div className='container-form'>
-                <div className='container-form-left'>
+          <div className="container-form-profile-066">
+     
+               
                   <div className='container-item'>
                   </div>
                   <div className='container-item'>
@@ -123,6 +133,18 @@ function UserProfile() {
                       name='first_name'
                       placeholder='Enter your first name'
                       value={first_name}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <div className='container-item'>
+                    <label className='input-label'>Second Name</label>
+                    <input
+                      className='input-form'
+                      type="text"
+                      required
+                      value={last_name}
+                      name='last_name'
+                      placeholder='Enter your last name'
                       onChange={onChange}
                     />
                   </div>
@@ -140,37 +162,6 @@ function UserProfile() {
                     />
                   </div>
                   <div className='container-item'>
-                    <label className='input-label'>Password</label>
-                    <input
-                      className='input-form'
-                      type="password"
-                      required
-                      value={password}
-                      name='password'
-                      placeholder='Enter your password'
-                      onChange={onChange}
-                    />
-                  </div>
-
-                  <div className='container-item'>
-                    <button type='submit' className='green-button'>Save</button>
-                  </div>
-                </div>
-
-                <div className='container-form-right'>
-                  <div className='container-item'>
-                    <label className='input-label'>Second Name</label>
-                    <input
-                      className='input-form'
-                      type="text"
-                      required
-                      value={last_name}
-                      name='last_name'
-                      placeholder='Enter your last name'
-                      onChange={onChange}
-                    />
-                  </div>
-                  <div className='container-item'>
                     <label className='input-label'>birthday</label>
                     <input
                       className='input-form'
@@ -179,6 +170,18 @@ function UserProfile() {
                       value={moment(birthday).format('yyyy-MM-DD')}
                       name='birthday'
                       placeholder='Enter your birth date'
+                      onChange={onChange}
+                    />
+                  </div>
+                  <div className='container-item'>
+                    <label className='input-label'>Password</label>
+                    <input
+                      className='input-form'
+                      type="password"
+                      required
+                      value={password}
+                      name='password'
+                      placeholder='Enter your password'
                       onChange={onChange}
                     />
                   </div>
@@ -194,12 +197,39 @@ function UserProfile() {
                       onChange={onChange}
                     />
                   </div>
-                </div>
+
+                  <div className='container-item'>
+                    <button type='submit' className='green-button'>Save</button>
+                  </div>
+               
+
+           
+                 
+           
+                  
+                
               </div>
-            </form>
-          </div>
+          
+
+       
+          
+
         </div>
-      </div>
+
+      </form>   
+
+    </div>
+    </div>
+
+
+
+
+
+
+                               
+              
+           
+    
     </>
   );
 }
