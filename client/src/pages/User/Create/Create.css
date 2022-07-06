@@ -8,7 +8,7 @@
   box-sizing: border-box;
   margin-top: 43px;
   margin-right: 114px;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
@@ -62,7 +62,7 @@
   height: 123px;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 100%;
-  align-self:center;
+  align-self: center;
   margin-bottom: 35px;
 }
 

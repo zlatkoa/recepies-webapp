@@ -88,8 +88,20 @@ module.exports = {
 
   patch:
     async (req, res) => {
-      req.body.password = bcrypt.hashSync(req.body.password);
-      await User.findByIdAndUpdate(req.params.id, req.body);
+      const oldUserData = await User.findById(req.params.id);
+      //const password = bcrypt.hashSync(req.body.password);
+
+      console.log(oldUserData.password)
+      if (bcrypt.compareSync(req.body.password, oldUserData.password)) {
+        await User.findByIdAndUpdate(req.params.id, req.body);
+        console.log('true')
+
+      } else {
+        req.body.password = bcrypt.hashSync(req.body.password);
+        await User.findByIdAndUpdate(req.params.id, req.body);
+        console.log('false')
+      }
+
       const user = await User.findById(req.params.id);
       res.send({
         error: false,
