@@ -24,11 +24,10 @@ function UserProfile() {
     birthday: '',
     picture: '',
     password: '',
-    password2: '',
-    currentpassword: ''
+    password2: ''
   })
 
-  const { first_name, last_name, email, birthday, password, picture, password2, currentpassword } = formData
+  const { first_name, last_name, email, birthday, password, picture, password2 } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -59,7 +58,6 @@ function UserProfile() {
       setFormData(prev => ({ ...prev, picture: res.data.user.picture }))
       setFormData(prev => ({ ...prev, password: '' }))
       setFormData(prev => ({ ...prev, password2: '' }))
-      setFormData(prev => ({ ...prev, currentpassword: res.data.user.password }))
       setIsDataFetched(true);
       setLoading(false);
     }
@@ -75,13 +73,21 @@ function UserProfile() {
 
   const onSubmit = (e) => {
     e.preventDefault()
-
-
-
-    if (password != password2) {
-      toast.error('Passwords do not match, please check your password')
-    } else {
+    if (password === '') {
+      delete formData.password
       editUser(formData);
+    } else {
+      // Password -> Match uppercase, lowercase, digit or #$!%*?& and make sure the length is 8 to 96 in length  
+      const pwdFilter = /^(?=.*\p{Ll})(?=.*\p{Lu})(?=.*[\d|@#$!%*?&])[\p{L}\d@#$!%*?&]{8,96}$/gmu
+      if (!pwdFilter.test(password)) {
+        toast.error('Password must have one uppercase, lowercase, digit or special sign, and should be more than 8 characters');
+      } else {
+        if (password != password2) {
+          toast.error('New password and password do not match, please check your password')
+        } else {
+          editUser(formData);
+        }
+      }
     }
   }
 
@@ -89,7 +95,12 @@ function UserProfile() {
     try {
       const res = await axios.patch('http://localhost:3000/users/' + user.payload.id, formData, config);
       setLoading(true);
-      dispatch(logout());
+      toast.success('User data is updated')
+      setLoading(false);
+      if ('password' in formData) {
+        toast.success('Your password is updated, please log in with the new password')
+        dispatch(logout());
+      }
 
     } catch (err) {
       if (err.response.stauts === 500) {
@@ -182,22 +193,11 @@ function UserProfile() {
                     type="password"
                     value={null}
                     name='password'
-                    placeholder='Enter your password'
+                    placeholder='Enter your new password'
                     onChange={onChange}
                   />
                 </div>
-                <div className='container-item-profile'>
-                  <label className='input-label'>Old password</label>
-                  <input
-                    className='input-form'
-                    type="password"
 
-                    value={null}
-                    name='oldpassword'
-                    placeholder='Confirm your password'
-                    onChange={onChange}
-                  />
-                </div>
                 <div className='container-item-profile'>
                   <label className='input-label'>Confirm new password</label>
                   <input
@@ -206,12 +206,9 @@ function UserProfile() {
 
                     value={null}
                     name='password2'
-                    placeholder='Repeat your password'
+                    placeholder='Confirm your new password'
                     onChange={onChange}
                   />
-                </div>
-                <div className='container-item-profile'>
-
                 </div>
 
                 <div className='container-item-profile'>
