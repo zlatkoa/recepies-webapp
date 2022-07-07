@@ -89,18 +89,25 @@ module.exports = {
   patch:
     async (req, res) => {
       const oldUserData = await User.findById(req.params.id);
-      //const password = bcrypt.hashSync(req.body.password);
 
-      console.log(oldUserData.password)
-      if (bcrypt.compareSync(req.body.password, oldUserData.password)) {
-        await User.findByIdAndUpdate(req.params.id, req.body);
-        console.log('true')
+      if ('password' in req.body) {
+        console.log(oldUserData.password)
+        if (bcrypt.compareSync(req.body.password, oldUserData.password)) {
+          req.body.password = oldUserData.password;
+          await User.findByIdAndUpdate(req.params.id, req.body);
+          console.log('nema izmena vo password istiot e samo data smeniv')
 
+        } else {
+          console.log(req.body.password);
+          req.body.password = bcrypt.hashSync(req.body.password);
+          await User.findByIdAndUpdate(req.params.id, req.body);
+          console.log('ima izmena vo password')
+        }
       } else {
-        req.body.password = bcrypt.hashSync(req.body.password);
         await User.findByIdAndUpdate(req.params.id, req.body);
-        console.log('false')
+        console.log('nema password zapisav samo data')
       }
+
 
       const user = await User.findById(req.params.id);
       res.send({

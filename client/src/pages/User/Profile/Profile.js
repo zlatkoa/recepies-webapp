@@ -24,10 +24,11 @@ function UserProfile() {
     birthday: '',
     picture: '',
     password: '',
-    password2: ''
+    password2: '',
+    currentpassword: ''
   })
 
-  const { first_name, last_name, email, birthday, password, picture, password2 } = formData
+  const { first_name, last_name, email, birthday, password, picture, password2, currentpassword } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -58,6 +59,7 @@ function UserProfile() {
       setFormData(prev => ({ ...prev, picture: res.data.user.picture }))
       setFormData(prev => ({ ...prev, password: '' }))
       setFormData(prev => ({ ...prev, password2: '' }))
+      setFormData(prev => ({ ...prev, currentpassword: res.data.user.password }))
       setIsDataFetched(true);
       setLoading(false);
     }
@@ -73,6 +75,8 @@ function UserProfile() {
 
   const onSubmit = (e) => {
     e.preventDefault()
+
+
 
     if (password != password2) {
       toast.error('Passwords do not match, please check your password')
@@ -172,28 +176,42 @@ function UserProfile() {
                   />
                 </div>
                 <div className='container-item-profile'>
-                  <label className='input-label'>Password</label>
+                  <label className='input-label'>New password</label>
                   <input
                     className='input-form'
                     type="password"
-                    required
-                    value={password}
+                    value={null}
                     name='password'
                     placeholder='Enter your password'
                     onChange={onChange}
                   />
                 </div>
                 <div className='container-item-profile'>
-                  <label className='input-label'>Repeat password</label>
+                  <label className='input-label'>Old password</label>
                   <input
                     className='input-form'
                     type="password"
-                    required
-                    value={password2}
-                    name='password2'
+
+                    value={null}
+                    name='oldpassword'
                     placeholder='Confirm your password'
                     onChange={onChange}
                   />
+                </div>
+                <div className='container-item-profile'>
+                  <label className='input-label'>Confirm new password</label>
+                  <input
+                    className='input-form'
+                    type="password"
+
+                    value={null}
+                    name='password2'
+                    placeholder='Repeat your password'
+                    onChange={onChange}
+                  />
+                </div>
+                <div className='container-item-profile'>
+
                 </div>
 
                 <div className='container-item-profile'>
