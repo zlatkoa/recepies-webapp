@@ -3,10 +3,9 @@ const User = require('../models/user');
 const Recipe = require('../models/recipe');
 const Like = require('../models/like');
 const response = require('../lib/response_handler');
-const req = require('express/lib/request');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
+const fs = require('fs');
 
 module.exports = {
   getAll:
@@ -89,26 +88,33 @@ module.exports = {
   patch:
     async (req, res) => {
       const oldUserData = await User.findById(req.params.id);
-
-      if ('password' in req.body) {
-        console.log(oldUserData.password)
+      if (req.file) {
+        fs.unlink('public/' + oldUserData.picture, (err) => {
+          if (err) {
+            console.log(err)
+          }
+        })
+        req.body.picture = `images/${req.file.filename}`
+      } else {
+        req.body.picture = oldUserData.picture;
+      }
+      if (req.body.password) {
         if (bcrypt.compareSync(req.body.password, oldUserData.password)) {
           req.body.password = oldUserData.password;
           await User.findByIdAndUpdate(req.params.id, req.body);
           console.log('nema izmena vo password istiot e samo data smeniv')
 
         } else {
-          console.log(req.body.password);
+          console.log(req.body);
           req.body.password = bcrypt.hashSync(req.body.password);
           await User.findByIdAndUpdate(req.params.id, req.body);
-          console.log('ima izmena vo password')
+          console.log('Passwordot e smenet')
         }
       } else {
+        console.log(req.body);
         await User.findByIdAndUpdate(req.params.id, req.body);
-        console.log('nema password zapisav samo data')
+        console.log('nema izmena vo password')
       }
-
-
       const user = await User.findById(req.params.id);
       res.send({
         error: false,

@@ -45,7 +45,6 @@ function EditRecipe() {
         formData.append('people', people);
         formData.append('content', content);
         formData.append('creator', user.payload.id);
-
         sendData(formData)
     }
     const sendData = async (formData) => {
@@ -83,7 +82,6 @@ function EditRecipe() {
                             className='input-file'
                             type="file"
                             accept="image/*"
-
                             onChange={(e) => { setPicture(e.target.files[0]); setPreviewPic(false) }}
                         />
                     </div>
@@ -155,7 +153,6 @@ function EditRecipe() {
                     </div>
                 </form>
             </div>
-
         </div>
     );
 }

@@ -11,24 +11,17 @@ import Spinner from '../../../components/elements/Spinner/Spinner'
 import moment from 'moment';
 const settings = require('../../../settings/settings.json');
 
-
 function UserProfile() {
   const [loading, setLoading] = useState(false);
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [previewPic, setPreviewPic] = useState(true);
-
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    birthday: '',
-    picture: '',
-    password: '',
-    password2: ''
-  })
-
-  const { first_name, last_name, email, birthday, password, picture, password2 } = formData
-
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [birthday, setBirthday] = useState(null);
+  const [picture, setPicture] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [password2, setPassword2] = useState(null);
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -36,48 +29,41 @@ function UserProfile() {
     (state) => state.auth
   )
 
-
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   }
-  // console.log(user.token)
-  // console.log(user.payload.id)
-  // console.log(user.payload)
-  // console.log(profileData);
 
   useEffect(() => {
     const getUser = async () => {
       setLoading(true);
       const res = await axios.get('http://localhost:3000/users/' + user.payload.id, config);
-      setFormData(prev => ({ ...prev, first_name: res.data.user.first_name }))
-      setFormData(prev => ({ ...prev, last_name: res.data.user.last_name }))
-      setFormData(prev => ({ ...prev, email: res.data.user.email }))
-      setFormData(prev => ({ ...prev, birthday: res.data.user.birthday }))
-      setFormData(prev => ({ ...prev, picture: res.data.user.picture }))
-      setFormData(prev => ({ ...prev, password: '' }))
-      setFormData(prev => ({ ...prev, password2: '' }))
+      setFirstName(res.data.user.first_name);
+      setLastName(res.data.user.last_name);
+      setEmail(res.data.user.email);
+      setBirthday(res.data.user.birthday);
+      setPicture(res.data.user.picture);
       setIsDataFetched(true);
       setLoading(false);
     }
     getUser();
   }, []);
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('first_name', firstName);
+    formData.append('last_name', lastName);
+    formData.append('email', email);
+    formData.append('birthday', birthday);
+    formData.append('picture', picture);
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    if (password === '') {
-      delete formData.password
+    if (password === null) {
       editUser(formData);
+      toast.success('Your user data is updated')
     } else {
-      // Password -> Match uppercase, lowercase, digit or #$!%*?& and make sure the length is 8 to 96 in length  
+      // Password regex check
       const pwdFilter = /^(?=.*\p{Ll})(?=.*\p{Lu})(?=.*[\d|@#$!%*?&])[\p{L}\d@#$!%*?&]{8,96}$/gmu
       if (!pwdFilter.test(password)) {
         toast.error('Password must have one uppercase, lowercase, digit or special sign, and should be more than 8 characters');
@@ -85,7 +71,10 @@ function UserProfile() {
         if (password != password2) {
           toast.error('New password and password do not match, please check your password')
         } else {
+          formData.append('password', password);
           editUser(formData);
+          dispatch(logout());
+          toast.success('Your password is changed, please log in with the new password')
         }
       }
     }
@@ -95,25 +84,20 @@ function UserProfile() {
     try {
       const res = await axios.patch('http://localhost:3000/users/' + user.payload.id, formData, config);
       setLoading(true);
-      toast.success('User data is updated')
       setLoading(false);
-      if ('password' in formData) {
-        toast.success('Your password is updated, please log in with the new password')
-        dispatch(logout());
-      }
 
     } catch (err) {
       if (err.response.stauts === 500) {
         setLoading(false);
+        toast.error(err.message)
         console.log('Problem with the server');
       } else {
         setLoading(false);
-        console.log(err.response.data);
+        console.log(err);
+        toast.error(err.message)
       }
     }
   }
-
-
 
   if (loading) { return <Spinner /> }
   return (
@@ -121,18 +105,17 @@ function UserProfile() {
       <div className='page-container'>
         <SectionHeader title={'My Profile'} />
         <div className='content-container-profile'>
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className='container-form-profile'>
               <div className="container-form-profile-033">
-
-                {settings.url + picture && <img className="profile-picture" src={previewPic ? settings.url + picture : URL.createObjectURL(picture)}></img>}
+                {picture && <img className="profile-picture" src={previewPic ? settings.url + picture : URL.createObjectURL(picture)}></img>}
                 <label className='file-label-profile' htmlFor='file' >CHANGE AVATAR</label>
                 <input
                   id="file"
                   className='input-file'
                   type="file"
                   accept="image/*"
-                  onChange={(e) => { setFormData(prev => ({ ...prev, picture: (e.target.files[0]) })); setPreviewPic(false) }}
+                  onChange={(e) => { setPicture(e.target.files[0]); setPreviewPic(false) }}
                 />
               </div>
               <div className="container-form-profile-066">
@@ -145,8 +128,8 @@ function UserProfile() {
                     required
                     name='first_name'
                     placeholder='Enter your first name'
-                    value={first_name}
-                    onChange={onChange}
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 <div className='container-item-profile'>
@@ -155,10 +138,10 @@ function UserProfile() {
                     className='input-form'
                     type="text"
                     required
-                    value={last_name}
+                    value={lastName}
                     name='last_name'
                     placeholder='Enter your last name'
-                    onChange={onChange}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
 
@@ -171,7 +154,7 @@ function UserProfile() {
                     name='email'
                     placeholder='Enter your email'
                     value={email}
-                    onChange={onChange}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className='container-item-profile'>
@@ -183,7 +166,7 @@ function UserProfile() {
                     value={moment(birthday).format('yyyy-MM-DD')}
                     name='birthday'
                     placeholder='Enter your birth date'
-                    onChange={onChange}
+                    onChange={(e) => setBirthday(e.target.value)}
                   />
                 </div>
                 <div className='container-item-profile'>
@@ -194,7 +177,7 @@ function UserProfile() {
                     value={null}
                     name='password'
                     placeholder='Enter your new password'
-                    onChange={onChange}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
@@ -207,42 +190,18 @@ function UserProfile() {
                     value={null}
                     name='password2'
                     placeholder='Confirm your new password'
-                    onChange={onChange}
+                    onChange={(e) => setPassword2(e.target.value)}
                   />
                 </div>
 
                 <div className='container-item-profile'>
                   <button type='submit' className='green-button'>Save</button>
                 </div>
-
-
-
-
-
-
-
               </div>
-
-
-
-
-
             </div>
-
           </form>
-
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
     </>
   );
 }

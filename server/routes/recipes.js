@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const controller = require('../controllers/recipes');
-const upload = require('../utilities/upload/multer');
 const { expressjwt: jwt } = require('express-jwt');
 const response = require('../lib/response_handler');
+const upload = require('../utilities/upload/multer');
 
 require('dotenv').config();
 
