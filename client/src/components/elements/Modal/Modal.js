@@ -6,9 +6,6 @@ import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-so
 const settings = require ('../../../settings/settings.json');
 
 
-
-
-
 const Modal = ({open, onClose, modalRecipe}) => {
   if(!open)return null
   return(

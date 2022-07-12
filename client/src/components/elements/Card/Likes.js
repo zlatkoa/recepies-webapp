@@ -56,7 +56,6 @@ const Like = ({recipeId})=>{
         }else{
             setLikedByUser(false)
         };    
-
     }
 
     if (!user){
