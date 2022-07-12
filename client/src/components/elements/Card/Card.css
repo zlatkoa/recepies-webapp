@@ -112,3 +112,7 @@
     margin-left: 85px;
     box-sizing: border-box;
   }
+  .card-like :hover{
+    cursor: pointer;
+    color: #ffd700;    
+  }

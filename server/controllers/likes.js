@@ -24,6 +24,7 @@ module.exports ={
       like : like
     });
   },
+  
 
   // create:
   // async (req, res) => {
@@ -62,6 +63,23 @@ module.exports ={
         res.send({
           error:false,
           message: `User #${req.params.id} liked ${like} recipes`,
+          like : like
+        });
+      }
+      catch(error){
+        response( res, 500,
+          `The fetch for the likes failed the USer ID is wrong`
+        )
+    }
+  },
+
+  likedByUserId:
+    async (req, res) =>{
+      try{
+        const like = await Like.find({ user: req.body.user, recipe: req.body.recipe });
+        res.send({
+          error:false,
+          message: `This user have likes`,
           like : like
         });
       }

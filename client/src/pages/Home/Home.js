@@ -6,7 +6,7 @@ import SectionHeader from '../../components/elements/Section/Section'
 import './Home.css';
 
 
-function App() {
+function Home() {
   const [recipes, setRecipes] = useState([]);
   const [popularRecipes, setPopularRecipes] = useState([]);
   const [isDataFetched, setIsDataFetched] = useState(false);
@@ -84,5 +84,5 @@ function App() {
   }    
 }
   
-export default App;
+export default Home;
   

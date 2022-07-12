@@ -1,15 +1,16 @@
 import React from 'react';
 import './Modal.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Likes from '../Card/Likes';
 import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 const settings = require ('../../../settings/settings.json');
 
 
 
 
+
 const Modal = ({open, onClose, modalRecipe}) => {
   if(!open)return null
-  console.log(modalRecipe);
   return(
     <>
       <div className ='overlay'>
@@ -42,7 +43,7 @@ const Modal = ({open, onClose, modalRecipe}) => {
             <div className='modal-card-info'>
               <div className='card-time'><FontAwesomeIcon className='icon' icon={faClock} />{modalRecipe.time} min</div>
               <div className='card-serving'><FontAwesomeIcon className='icon' icon={faUtensils} /> {modalRecipe.people} persons</div>
-              <div className='card-like'><FontAwesomeIcon className='icon' icon={faStar} />{modalRecipe.likes}</div>
+              <Likes recipeId={modalRecipe._id}/>
              </div>
             </div>
           </div>

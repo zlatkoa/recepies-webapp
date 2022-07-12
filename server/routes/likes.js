@@ -12,7 +12,7 @@ router.use(jwt({
 }).unless({
       path: [
             {
-                  url: '/^\/recipe\/.*/', methods: ['GET']
+                  url: /^\/likes\/recipe\/.*/, methods: ['GET']
             }
       ]
 }));
@@ -37,6 +37,7 @@ router.get('/', controller.getAll)
       .get('/:id', controller.getOne)
       .get('/user/:id', controller.countByUserId)
       .get('/recipe/:id', controller.countByRecipeId)
+      .post('/user/', controller.likedByUserId)
       // .post('/', controller.create)
       // .patch('/:id', controller.patch)
       // .delete('/:id', controller.delete)

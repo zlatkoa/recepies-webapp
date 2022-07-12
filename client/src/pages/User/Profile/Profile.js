@@ -15,11 +15,11 @@ function UserProfile() {
   const [loading, setLoading] = useState(false);
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [previewPic, setPreviewPic] = useState(true);
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [birthday, setBirthday] = useState(null);
-  const [picture, setPicture] = useState(null);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [picture, setPicture] = useState('');
   const [password, setPassword] = useState(null);
   const [password2, setPassword2] = useState(null);
   const navigate = useNavigate()
