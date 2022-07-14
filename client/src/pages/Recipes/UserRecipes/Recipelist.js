@@ -7,7 +7,8 @@ import Spinner from '../../../components/elements/Spinner/Spinner';
 import SectionHeader from '../../../components/elements/Section/Section';
 import EditRecipe from '../Edit/Edit';
 import { FaTrashAlt, FaEdit, FaPlus, FaArrowLeft } from 'react-icons/fa';
-import Button from '../../../components/Button/Button'
+import Button from '../../../components/Button/Button';
+import ModalSmall from '../../../components/elements/Modal/Modalsmall'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../../../features/auth/authSlice'
@@ -21,6 +22,8 @@ function UserRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal]= useState(false);
+  const [modalRecipe, setModalRecipe]= useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage] = useState(9);
   const params = useParams();
@@ -55,6 +58,12 @@ function UserRecipes() {
    
   };
 
+    
+  const handleModal = (recipe) => {
+    setOpenModal(true);
+    setModalRecipe(recipe);
+  };
+
 
 
 
@@ -68,7 +77,8 @@ function UserRecipes() {
     if (recipes.length > 0) {
       return (
         <>
-          <div className='page-container'>
+        <ModalSmall open={openModal} modalRecipe={modalRecipe} onClose={()=>setOpenModal(false)}/>
+           <div className='page-container'>
             <SectionHeader title={"My Recipes"} button={<Button action={() => { navigate('/recipes/new') }} icon={'plus'} tooltip={'Click me to add new reicipe'} />} />
             <table className='recipe-table'>
               <thead className='orange-text recipe-table-header'>
@@ -91,6 +101,7 @@ function UserRecipes() {
                   <td className='table-column5'>{recipe.likes}</td>
                   <td className='table-column4' onClick={()=>editRecipe(recipe)}><FaEdit className='button-hover' /></td>
                   <td className='table-column5' onClick={()=>deleteRecipe(recipe._id)}><FaTrashAlt className='button-hover'/></td>
+                  <td className='table-column5' onClick={()=>handleModal(recipe)}><FaTrashAlt className='button-hover'/></td>
                 </tr>
                 <tr className='spacer'></tr>
                   </>

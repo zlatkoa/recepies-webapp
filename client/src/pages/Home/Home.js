@@ -13,6 +13,8 @@ function Home() {
   const [loading, setLoading]= useState(false);
   const [currentPage, setCurrentPage]= useState(1);
   const [recipesPerPage]= useState(3);
+  const [openModal, setOpenModal]= useState(false);
+  const [modalRecipe, setModalRecipe]= useState(null);
   
 
 

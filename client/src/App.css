@@ -45,6 +45,24 @@ body {
 .green-button:hover {
   background-color: orange;
 }
+.red-button {
+  width: auto;
+  height: 44px;
+  border: 0px solid #A5A5A5;
+  background-color: #ff0000;
+  border-radius: 5px;
+  font: normal normal 900 16px/21px Roboto;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0px 3px 6px #00000029;
+  box-sizing: border-box;
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.red-button:hover {
+  background-color: orange;
+}
 
 .outlined-button {
   width: auto;
