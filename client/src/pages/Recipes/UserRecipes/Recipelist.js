@@ -8,11 +8,12 @@ import SectionHeader from '../../../components/elements/Section/Section';
 import EditRecipe from '../Edit/Edit';
 import { FaTrashAlt, FaEdit, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import Button from '../../../components/Button/Button';
-import ModalSmall from '../../../components/elements/Modal/Modalsmall'
+import ModalSmall from '../../../components/elements/Modal/Modalsmall';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../../../features/auth/authSlice'
 import { toast } from 'react-toastify';
+const settings = require ('../../../settings/settings.json');
 
 function UserRecipes() {
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ function UserRecipes() {
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
-      const resRecipes = await axios.get('http://localhost:3000/recipes/user/' + user.payload.id, config);
+      const resRecipes = await axios.get(settings.url+'recipes/user/' + user.payload.id, config);
       const dataRecipes = await resRecipes.data.recipes;
       setRecipes(dataRecipes);
       setIsDataFetched(true);
@@ -49,7 +50,7 @@ function UserRecipes() {
 
 
   const deleteRecipe = async (recipe_id)=>{
-    await axios.delete('http://localhost:3000/recipes/' +recipe_id, config)
+    await axios.delete(settings.url+'recipes/' +recipe_id, config)
     window.location.reload(false); 
   }
 
@@ -77,7 +78,7 @@ function UserRecipes() {
     if (recipes.length > 0) {
       return (
         <>
-        <ModalSmall open={openModal} modalRecipe={modalRecipe} onClose={()=>setOpenModal(false)}/>
+        <ModalSmall open={openModal} modalRecipe={modalRecipe} deleteRecipe ={deleteRecipe} onClose={()=>setOpenModal(false)}/>
            <div className='page-container'>
             <SectionHeader title={"My Recipes"} button={<Button action={() => { navigate('/recipes/new') }} icon={'plus'} tooltip={'Click me to add new reicipe'} />} />
             <table className='recipe-table'>
@@ -100,7 +101,6 @@ function UserRecipes() {
                   <td className='table-column3'>{moment(recipe.createdAt).format('DD.MM.YYYY | HH:MM')}</td>
                   <td className='table-column5'>{recipe.likes}</td>
                   <td className='table-column4' onClick={()=>editRecipe(recipe)}><FaEdit className='button-hover' /></td>
-                  <td className='table-column5' onClick={()=>deleteRecipe(recipe._id)}><FaTrashAlt className='button-hover'/></td>
                   <td className='table-column5' onClick={()=>handleModal(recipe)}><FaTrashAlt className='button-hover'/></td>
                 </tr>
                 <tr className='spacer'></tr>
