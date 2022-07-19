@@ -21,14 +21,14 @@ function Home() {
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
-      const resRecipes = await axios.get('http://localhost:3000/recipes/latest');
+      const resRecipes = await axios.get(process.env.REACT_APP_API_URL+'recipes/latest');
       const dataRecipes = await resRecipes.data.recipes;  
       setRecipes (dataRecipes);        
     }
     fetchRecipes();
 
     const fetchPopularRecipes = async () =>{    
-      const resPopular = await axios.get ('http://localhost:3000/recipes/popular')
+      const resPopular = await axios.get (process.env.REACT_APP_API_URL+'recipes/popular')
       const dataPopular = await resPopular.data.recipes;        
       setPopularRecipes(dataPopular);
       setIsDataFetched(true);

@@ -3,7 +3,6 @@ import './Modal.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Likes from '../Card/Likes';
 import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
-const settings = require ('../../../settings/settings.json');
 
 
 const Modal = ({open, onClose, modalRecipe}) => {
@@ -23,7 +22,7 @@ const Modal = ({open, onClose, modalRecipe}) => {
         </div>
         <div className='modal-body'>
           <div className='modal-body-left'>
-            <img src={settings.url+modalRecipe.picture}></img>
+            <img src={process.env.REACT_APP_API_URL+modalRecipe.picture}></img>
           <div className="mbl-content">
             <div className="mbl-content-header">
               <div className="header-name">

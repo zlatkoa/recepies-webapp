@@ -5,7 +5,6 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import './Card.css';
-const settings = require ('../../../settings/settings.json');
 
 const Like = ({recipeId})=>{
     const [likes, setLikes]=useState(0); 
@@ -14,7 +13,7 @@ const Like = ({recipeId})=>{
 
     useEffect(() => {
         const getLikes = async () => {
-            const res = await axios.get(settings.url+'likes/recipe/'+recipeId);
+            const res = await axios.get(process.env.REACT_APP_API_URL+'likes/recipe/'+recipeId);
             setLikes(res.data.like);           
         }
         getLikes();
@@ -29,7 +28,7 @@ const Like = ({recipeId})=>{
                     Authorization: `Bearer ${user.token}`               
                 },
             }     
-            const res = await axios.post(settings.url+'likes/user/', payload, config);
+            const res = await axios.post(process.env.REACT_APP_API_URL+'likes/user/', payload, config);
             if(res.data.like.length>0){
                 setLikedByUser(true)
             };
@@ -47,10 +46,10 @@ const Like = ({recipeId})=>{
                 Authorization: `Bearer ${user.token}`               
             },
         }     
-        const res = await axios.post(settings.url+'users/like/', payload, config);
-        const updateLikeCounter = await axios.get(settings.url+'likes/recipe/'+recipeId);
+        const res = await axios.post(process.env.REACT_APP_API_URL+'users/like/', payload, config);
+        const updateLikeCounter = await axios.get(process.env.REACT_APP_API_URL+'likes/recipe/'+recipeId);
         setLikes(updateLikeCounter.data.like);
-        const liked = await axios.post(settings.url+'likes/user/', payload, config);
+        const liked = await axios.post(process.env.REACT_APP_API_URL+'likes/user/', payload, config);
         if(liked.data.like.length>0){
             setLikedByUser(true)
         }else{

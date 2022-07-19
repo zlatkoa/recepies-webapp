@@ -3,7 +3,7 @@ import './Modal.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Likes from '../Card/Likes';
 import { faUtensils, faClock, faStar, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
-const settings = require ('../../../settings/settings.json');
+
 
 
 const Modal = ({open, onClose, modalRecipe, deleteRecipe}) => {

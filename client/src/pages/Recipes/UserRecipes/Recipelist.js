@@ -5,15 +5,12 @@ import { useParams, useNavigate, Navigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../../../components/elements/Spinner/Spinner';
 import SectionHeader from '../../../components/elements/Section/Section';
-import EditRecipe from '../Edit/Edit';
 import { FaTrashAlt, FaEdit, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import Button from '../../../components/Button/Button';
 import ModalSmall from '../../../components/elements/Modal/Modalsmall';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { logout, reset } from '../../../features/auth/authSlice'
-import { toast } from 'react-toastify';
-const settings = require ('../../../settings/settings.json');
+
 
 function UserRecipes() {
   const navigate = useNavigate()
@@ -38,7 +35,7 @@ function UserRecipes() {
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
-      const resRecipes = await axios.get(settings.url+'recipes/user/' + user.payload.id, config);
+      const resRecipes = await axios.get(process.env.REACT_APP_API_URL+'recipes/user/' + user.payload.id, config);
       const dataRecipes = await resRecipes.data.recipes;
       setRecipes(dataRecipes);
       setIsDataFetched(true);
@@ -50,7 +47,7 @@ function UserRecipes() {
 
 
   const deleteRecipe = async (recipe_id)=>{
-    await axios.delete(settings.url+'recipes/' +recipe_id, config)
+    await axios.delete(process.env.REACT_APP_API_URL+'recipes/' +recipe_id, config)
     window.location.reload(false); 
   }
 

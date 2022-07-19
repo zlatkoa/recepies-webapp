@@ -5,7 +5,7 @@ import Button from '../../../components/Button/Button';
 import './Edit.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-const settings = require('../../../settings/settings.json');
+
 
 function EditRecipe() {
 
@@ -18,7 +18,7 @@ function EditRecipe() {
     const [description, setDescription] = useState(recipe.description);
     const [content, setContent] = useState(recipe.content);
     const [creator, setCreator] = useState(recipe.creator);
-    const [picture, setPicture] = useState(settings.url + recipe.picture);
+    const [picture, setPicture] = useState(process.env.REACT_APP_API_URL+ recipe.picture);
     const [previewPic, setPreviewPic] = useState(true);
     const [isPending, setIsPending] = useState(false);
     const navigate = useNavigate();
@@ -49,7 +49,7 @@ function EditRecipe() {
     }
     const sendData = async (formData) => {
         try {
-            const res = await axios.patch('http://localhost:3000/recipes/' + recipe._id, formData, config);
+            const res = await axios.patch(process.env.REACT_APP_API_URL+'recipes/' + recipe._id, formData, config);
             setIsPending(false);
             navigate('/recipes/user');
 

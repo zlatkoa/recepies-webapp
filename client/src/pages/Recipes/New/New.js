@@ -44,7 +44,7 @@ function App() {
 
         try {
             console.log([...formData])
-            const res = await axios.post('http://localhost:3000/recipes', formData, config);
+            const res = await axios.post(process.env.REACT_APP_API_URL+'recipes', formData, config);
             setIsPending(false);
             //resetForm();
             navigate('/recipes/user');

@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
-      const resRecipes = await axios.get('http://localhost:3000/recipes/category/'+params.category);
+      const resRecipes = await axios.get(process.env.REACT_APP_API_URL+'recipes/category/'+params.category);
       const dataRecipes = await resRecipes.data.recipes;  
       setRecipes (dataRecipes);    
       setIsDataFetched(true);  

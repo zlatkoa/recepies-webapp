@@ -38,7 +38,7 @@ function UserProfile() {
   useEffect(() => {
     const getUser = async () => {
       setLoading(true);
-      const res = await axios.get('http://localhost:3000/users/' + user.payload.id, config);
+      const res = await axios.get(process.env.REACT_APP_API_URL+'users/' + user.payload.id, config);
       setFirstName(res.data.user.first_name);
       setLastName(res.data.user.last_name);
       setEmail(res.data.user.email);
@@ -82,7 +82,7 @@ function UserProfile() {
 
   const editUser = async (formData) => {
     try {
-      const res = await axios.patch('http://localhost:3000/users/' + user.payload.id, formData, config);
+      const res = await axios.patch(process.env.REACT_APP_API_URL+'users/' + user.payload.id, formData, config);
       setLoading(true);
       setLoading(false);
 
